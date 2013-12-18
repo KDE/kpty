@@ -60,7 +60,7 @@ void KPtyProcessTest::test_shared_pty()
 {
     // start a first process
     KPtyProcess p;
-    p.setProgram("cat"); 
+    p.setProgram("cat");
     p.setPtyChannels(KPtyProcess::AllChannels);
     p.pty()->setEcho(false);
     p.start();
@@ -77,8 +77,9 @@ void KPtyProcessTest::test_shared_pty()
     // read the second processes greeting from the first process' pty
     QVERIFY(p.pty()->waitForReadyRead(1500));
     for (int i = 0; i < 5; ++i) {
-        if (p.pty()->canReadLine())
+        if (p.pty()->canReadLine()) {
             break;
+        }
         QThread::msleep(500);
     }
     QCOMPARE(p.pty()->readAll(), QByteArray("hello from me\r\n"));
@@ -90,8 +91,9 @@ void KPtyProcessTest::test_shared_pty()
     // read the result back from the first process' pty
     QVERIFY(p.pty()->waitForReadyRead(1500));
     for (int i = 0; i < 5; ++i) {
-        if (p.pty()->canReadLine())
+        if (p.pty()->canReadLine()) {
             break;
+        }
         QThread::msleep(500);
     }
     QCOMPARE(p.pty()->readAll(), QByteArray("hello from process 2\r\n"));
@@ -103,8 +105,9 @@ void KPtyProcessTest::test_shared_pty()
     // read the result back from the second process' pty
     QVERIFY(p2.pty()->waitForReadyRead(1500));
     for (int i = 0; i < 5; ++i) {
-        if (p.pty()->canReadLine())
+        if (p.pty()->canReadLine()) {
             break;
+        }
         QThread::msleep(500);
     }
     QCOMPARE(p2.pty()->readAll(), QByteArray("hi from process 1\r\n"));
@@ -131,7 +134,6 @@ void KPtyProcessTest::test_pty_basic()
     QCOMPARE(output, QLatin1String("1: test\r\n2: test\r\n"));
 }
 
-
 void KPtyProcessTest::slotReadyRead()
 {
     delay.start(30);
@@ -139,8 +141,9 @@ void KPtyProcessTest::slotReadyRead()
 
 void KPtyProcessTest::slotDoRead()
 {
-    while (sp.pty()->canReadLine())
+    while (sp.pty()->canReadLine()) {
         log.append('>').append(sp.pty()->readLine()).append("$\n");
+    }
     log.append("!\n");
 }
 
@@ -154,7 +157,7 @@ void KPtyProcessTest::slotBytesWritten()
     log.append('<');
 }
 
-static const char * const feeds[] = {
+static const char *const feeds[] = {
     "bla\n",
     "foo\x04", "bar\n",
     "fooish\nbar\n",
@@ -201,7 +204,6 @@ void KPtyProcessTest::test_pty_signals()
     QCOMPARE(QLatin1String(log), QLatin1String(want));
 }
 
-
 void KPtyProcessTest::test_ctty()
 {
 #ifdef Q_OS_MAC
@@ -216,5 +218,5 @@ void KPtyProcessTest::test_ctty()
 #endif
 }
 
-QTEST_MAIN( KPtyProcessTest )
+QTEST_MAIN(KPtyProcessTest)
 

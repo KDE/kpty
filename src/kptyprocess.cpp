@@ -19,7 +19,6 @@
     Boston, MA 02110-1301, USA.
 */
 
-
 #include "kptyprocess.h"
 
 #include <kuser.h>
@@ -41,8 +40,9 @@ struct KPtyProcessPrivate {
 
     void _k_onStateChanged(QProcess::ProcessState newState)
     {
-        if (newState == QProcess::NotRunning && addUtmp)
+        if (newState == QProcess::NotRunning && addUtmp) {
             pty->logout();
+        }
     }
 
     KPtyDevice *pty;
@@ -125,14 +125,18 @@ void KPtyProcess::setupChildProcess()
     Q_D(KPtyProcess);
 
     d->pty->setCTty();
-    if (d->addUtmp)
+    if (d->addUtmp) {
         d->pty->login(KUser(KUser::UseRealUserID).loginName().toLocal8Bit().constData(), qgetenv("DISPLAY").constData());
-    if (d->ptyChannels & StdinChannel)
+    }
+    if (d->ptyChannels & StdinChannel) {
         dup2(d->pty->slaveFd(), 0);
-    if (d->ptyChannels & StdoutChannel)
+    }
+    if (d->ptyChannels & StdoutChannel) {
         dup2(d->pty->slaveFd(), 1);
-    if (d->ptyChannels & StderrChannel)
+    }
+    if (d->ptyChannels & StderrChannel) {
         dup2(d->pty->slaveFd(), 2);
+    }
 
     KProcess::setupChildProcess();
 }

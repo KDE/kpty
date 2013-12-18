@@ -35,7 +35,8 @@ struct KPtyDevicePrivate;
 /**
  * Encapsulates KPty into a QIODevice, so it can be used with Q*Stream, etc.
  */
-class KPTY_EXPORT KPtyDevice : public QIODevice, public KPty { //krazy:exclude=dpointer (via macro)
+class KPTY_EXPORT KPtyDevice : public QIODevice, public KPty   //krazy:exclude=dpointer (via macro)
+{
     Q_OBJECT
     Q_DECLARE_PRIVATE_MI(KPtyDevice, KPty)
 
@@ -132,7 +133,6 @@ public:
 
     bool waitForBytesWritten(int msecs = -1);
     bool waitForReadyRead(int msecs = -1);
-
 
 Q_SIGNALS:
     /**

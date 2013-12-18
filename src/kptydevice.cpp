@@ -44,13 +44,13 @@
 #endif
 
 #if defined(Q_OS_FREEBSD) || defined(Q_OS_MAC)
-  // "the other end's output queue size" - kinda braindead, huh?
+// "the other end's output queue size" - kinda braindead, huh?
 # define PTY_BYTES_AVAILABLE TIOCOUTQ
 #elif defined(TIOCINQ)
-  // "our end's input queue size"
+// "our end's input queue size"
 # define PTY_BYTES_AVAILABLE TIOCINQ
 #else
-  // likewise. more generic ioctl (theoretically)
+// likewise. more generic ioctl (theoretically)
 # define PTY_BYTES_AVAILABLE FIONREAD
 #endif
 
@@ -110,9 +110,10 @@ public:
         Q_ASSERT(totalSize >= 0);
 
         forever {
-            int nbs = readSize();
+        int nbs = readSize();
 
-            if (bytes < nbs) {
+            if (bytes < nbs)
+            {
                 head += bytes;
                 if (head == tail && buffers.count() == 1) {
                     buffers.first().resize(CHUNKSIZE);
@@ -122,7 +123,8 @@ public:
             }
 
             bytes -= nbs;
-            if (buffers.count() == 1) {
+            if (buffers.count() == 1)
+            {
                 buffers.first().resize(CHUNKSIZE);
                 head = tail = 0;
                 break;
@@ -173,17 +175,23 @@ public:
         int start = head;
         QLinkedList<QByteArray>::ConstIterator it = buffers.begin();
         forever {
-            if (!maxLength)
+        if (!maxLength)
+            {
                 return index;
+            }
             if (index == size())
+            {
                 return -1;
+            }
             const QByteArray &buf = *it;
             ++it;
             int len = qMin((it == buffers.end() ? tail : buf.size()) - start,
-                           maxLength);
+            maxLength);
             const char *ptr = buf.data() + start;
             if (const char *rptr = (const char *)memchr(ptr, c, len))
+            {
                 return index + (rptr - ptr) + 1;
+            }
             index += len;
             maxLength -= len;
             start = 0;
@@ -247,7 +255,7 @@ static void qt_ignore_sigpipe()
 struct KPtyDevicePrivate : public KPtyPrivate {
     Q_DECLARE_PUBLIC(KPtyDevice)
 
-    KPtyDevicePrivate(KPty* parent) :
+    KPtyDevicePrivate(KPty *parent) :
         KPtyPrivate(parent),
         emittedReadyRead(false), emittedBytesWritten(false),
         readNotifier(0), writeNotifier(0)
@@ -312,9 +320,9 @@ bool KPtyDevicePrivate::_k_canRead()
         readBytes = 0;
         while (!readBytes)
 #endif
-        // Useless block braces except in Solaris
+            // Useless block braces except in Solaris
         {
-          NO_INTR(readBytes, read(q->masterFd(), ptr, available));
+            NO_INTR(readBytes, read(q->masterFd(), ptr, available));
         }
         if (readBytes < 0) {
             readBuffer.unreserve(available);
@@ -343,8 +351,9 @@ bool KPtyDevicePrivate::_k_canWrite()
     Q_Q(KPtyDevice);
 
     writeNotifier->setEnabled(false);
-    if (writeBuffer.isEmpty())
+    if (writeBuffer.isEmpty()) {
         return false;
+    }
 
     qt_ignore_sigpipe();
     int wroteBytes;
@@ -363,8 +372,9 @@ bool KPtyDevicePrivate::_k_canWrite()
         emittedBytesWritten = false;
     }
 
-    if (!writeBuffer.isEmpty())
+    if (!writeBuffer.isEmpty()) {
         writeNotifier->setEnabled(true);
+    }
     return true;
 }
 
@@ -398,9 +408,9 @@ bool KPtyDevicePrivate::doWait(int msecs, bool reading)
 #endif
     struct timeval tv, *tvp;
 
-    if (msecs < 0)
+    if (msecs < 0) {
         tvp = 0;
-    else {
+    } else {
         tv.tv_sec = msecs / 1000;
         tv.tv_usec = (msecs % 1000) * 1000;
 #ifndef __linux__
@@ -417,24 +427,28 @@ bool KPtyDevicePrivate::doWait(int msecs, bool reading)
         FD_ZERO(&rfds);
         FD_ZERO(&wfds);
 
-        if (readNotifier->isEnabled())
+        if (readNotifier->isEnabled()) {
             FD_SET(q->masterFd(), &rfds);
-        if (!writeBuffer.isEmpty())
+        }
+        if (!writeBuffer.isEmpty()) {
             FD_SET(q->masterFd(), &wfds);
+        }
 
 #ifndef __linux__
         if (tvp) {
             gettimeofday(&tv, 0);
             timersub(&etv, &tv, &tv);
-            if (tv.tv_sec < 0)
+            if (tv.tv_sec < 0) {
                 tv.tv_sec = tv.tv_usec = 0;
+            }
         }
 #endif
 
         switch (select(q->masterFd() + 1, &rfds, &wfds, 0, tvp)) {
         case -1:
-            if (errno == EINTR)
+            if (errno == EINTR) {
                 break;
+            }
             return false;
         case 0:
             q->setErrorString(i18n("PTY operation timed out"));
@@ -442,13 +456,15 @@ bool KPtyDevicePrivate::doWait(int msecs, bool reading)
         default:
             if (FD_ISSET(q->masterFd(), &rfds)) {
                 bool canRead = _k_canRead();
-                if (reading && canRead)
+                if (reading && canRead) {
                     return true;
+                }
             }
             if (FD_ISSET(q->masterFd(), &wfds)) {
                 bool canWrite = _k_canWrite();
-                if (!reading)
+                if (!reading) {
                     return canWrite;
+                }
             }
             break;
         }
@@ -489,8 +505,9 @@ bool KPtyDevice::open(OpenMode mode)
 {
     Q_D(KPtyDevice);
 
-    if (masterFd() >= 0)
+    if (masterFd() >= 0) {
         return true;
+    }
 
     if (!KPty::open()) {
         setErrorString(i18n("Error opening PTY"));
@@ -520,8 +537,9 @@ void KPtyDevice::close()
 {
     Q_D(KPtyDevice);
 
-    if (masterFd() < 0)
+    if (masterFd() < 0) {
         return;
+    }
 
     delete d->readNotifier;
     delete d->writeNotifier;

@@ -19,7 +19,6 @@
     Boston, MA 02110-1301, USA.
 */
 
-
 #ifndef kptyprocesstest_h
 #define kptyprocesstest_h
 
@@ -27,7 +26,8 @@
 
 #include <QtCore/QTimer>
 
-class KPtyProcessTest : public QObject {
+class KPtyProcessTest : public QObject
+{
     Q_OBJECT
 
 private Q_SLOTS:
