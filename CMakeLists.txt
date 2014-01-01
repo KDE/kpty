@@ -23,6 +23,7 @@ set(CMAKECONFIG_INSTALL_DIR "${CMAKECONFIG_INSTALL_PREFIX}/KF5Pty")
 # Includes
 include(FeatureSummary)
 include(ECMSetupVersion)
+include(ECMGenerateHeaders)
 include(CMakePackageConfigHelpers)
 
 ecm_setup_version(
