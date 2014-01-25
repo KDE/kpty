@@ -53,3 +53,7 @@ if (NOT HAVE_OPENPTY)
    ecm_mark_nongui_executable(kgrantpty)
    install(TARGETS kgrantpty DESTINATION ${LIBEXEC_INSTALL_DIR})
 endif ()
+
+include(ECMGeneratePriFile)
+ecm_generate_pri_file(BASE_NAME KPty LIB_NAME KF5Pty DEPS "core KCoreAddons" FILENAME_VAR PRI_FILENAME)
+install(FILES ${PRI_FILENAME} DESTINATION ${ECM_MKSPECS_INSTALL_DIR})
