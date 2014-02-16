@@ -28,15 +28,14 @@ set_target_properties(KF5Pty PROPERTIES
    EXPORT_NAME Pty
 )
 
-ecm_generate_headers(
+ecm_generate_headers(KPty_HEADERS
+  HEADER_NAMES
   KPty
   KPtyDevice
   KPtyProcess
 
-  MODULE_NAME KPty
   REQUIRED_HEADERS KPty_HEADERS
 )
-install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/KPty DESTINATION ${INCLUDE_INSTALL_DIR} COMPONENT Devel)
 
 install(TARGETS KF5Pty EXPORT KF5PtyTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
 
