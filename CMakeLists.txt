@@ -32,7 +32,7 @@ ecm_setup_version(
   VARIABLE_PREFIX KPTY
   VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/kpty_version.h"
   PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF5PtyConfigVersion.cmake"
-)
+  SOVERSION 5)
 
 ecm_configure_package_config_file(
   "${CMAKE_CURRENT_SOURCE_DIR}/KF5PtyConfig.cmake.in"
