@@ -6,15 +6,16 @@ find_package(ECM 0.0.12 REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 
 set(REQUIRED_QT_VERSION 5.2)
-set(KF5_VERSION "4.98.0")
+set(KF5_VERSION "4.98.0") # handled by release scripts # handled by release scripts
+set(KF5_DEP_VERSION "4.98.0") # handled by release scripts
 include(KDEInstallDirs)
 include(KDEFrameworkCompilerSettings)
 include(KDECMakeSettings)
 find_package(Qt5 "${REQUIRED_QT_VERSION}" CONFIG REQUIRED Core)
 
 if ("${CMAKE_BINARY_DIR}" STREQUAL "${CMAKE_CURRENT_BINARY_DIR}")
-  find_package(KF5CoreAddons ${KF5_VERSION} REQUIRED)
-  find_package(KF5I18n ${KF5_VERSION} REQUIRED)
+  find_package(KF5CoreAddons ${KF5_DEP_VERSION} REQUIRED)
+  find_package(KF5I18n ${KF5_DEP_VERSION} REQUIRED)
 endif()
 
 # create a Config.cmake and a ConfigVersion.cmake file and install them
