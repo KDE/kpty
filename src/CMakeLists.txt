@@ -11,7 +11,7 @@ add_library(KF5::Pty ALIAS KF5Pty)
 include(ConfigureChecks.cmake)
 configure_file(config-pty.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-pty.h )
 
-target_include_directories(KF5Pty INTERFACE "$<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}/KPty>")
+target_include_directories(KF5Pty INTERFACE "$<INSTALL_INTERFACE:${KF5_INCLUDE_INSTALL_DIR}/KPty>")
 
 target_link_libraries(KF5Pty PUBLIC Qt5::Core
                                     KF5::CoreAddons # KProcess
@@ -37,12 +37,12 @@ ecm_generate_headers(KPty_HEADERS
   REQUIRED_HEADERS KPty_HEADERS
 )
 
-install(TARGETS KF5Pty EXPORT KF5PtyTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS KF5Pty EXPORT KF5PtyTargets ${KF5_INSTALL_TARGETS_DEFAULT_ARGS})
 
 install(FILES
   ${CMAKE_CURRENT_BINARY_DIR}/kpty_export.h
   ${KPty_HEADERS}
-  DESTINATION ${INCLUDE_INSTALL_DIR}/KPty COMPONENT Devel
+  DESTINATION ${KF5_INCLUDE_INSTALL_DIR}/KPty COMPONENT Devel
 )
 
 ########### next target ###############
