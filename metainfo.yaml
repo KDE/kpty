@@ -1,1 +1,9 @@
+maintainer:
+description: Pty abstraction
 tier: 2
+type: integration
+platforms:
+    - name: Linux
+portingAid: false
+deprecated: false
+release: true
