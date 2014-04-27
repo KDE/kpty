@@ -50,7 +50,7 @@ install(FILES
 if (NOT HAVE_OPENPTY)
    add_executable(kgrantpty kgrantpty.c)
    ecm_mark_nongui_executable(kgrantpty)
-   install(TARGETS kgrantpty DESTINATION ${LIBEXEC_INSTALL_DIR})
+   install(TARGETS kgrantpty DESTINATION ${KF5_LIBEXEC_INSTALL_DIR})
 endif ()
 
 include(ECMGeneratePriFile)
