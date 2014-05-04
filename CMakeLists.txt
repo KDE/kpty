@@ -2,12 +2,12 @@ cmake_minimum_required(VERSION 2.8.12)
 
 project(KPty)
 
-find_package(ECM 0.0.12 REQUIRED NO_MODULE)
+find_package(ECM 0.0.13 REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 
 set(REQUIRED_QT_VERSION 5.2)
 set(KF5_VERSION "4.99.0") # handled by release scripts
-set(KF5_DEP_VERSION "4.98.0") # handled by release scripts
+set(KF5_DEP_VERSION "4.99.0") # handled by release scripts
 include(KDEInstallDirs)
 include(KDEFrameworkCompilerSettings)
 include(KDECMakeSettings)
