@@ -197,7 +197,7 @@ void KPtyProcessTest::test_pty_signals()
     phase = 0;
     qRegisterMetaType<QProcess::ExitStatus>();
     QSignalSpy finishedSpy(&sp, SIGNAL(finished(int,QProcess::ExitStatus)));
-    QVERIFY(finishedSpy.wait(1000));
+    QVERIFY(finishedSpy.wait(2000));
     QCOMPARE(QLatin1String(log), QLatin1String(want));
 }
 
