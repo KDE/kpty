@@ -11,7 +11,7 @@ add_library(KF5::Pty ALIAS KF5Pty)
 include(ConfigureChecks.cmake)
 configure_file(config-pty.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-pty.h )
 
-target_include_directories(KF5Pty INTERFACE "$<INSTALL_INTERFACE:${KF5_INCLUDE_INSTALL_DIR}/KPty>")
+target_include_directories(KF5Pty INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF5}/KPty>")
 
 target_link_libraries(KF5Pty PUBLIC Qt5::Core
                                     KF5::CoreAddons # KProcess
@@ -42,7 +42,7 @@ install(TARGETS KF5Pty EXPORT KF5PtyTargets ${KF5_INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES
   ${CMAKE_CURRENT_BINARY_DIR}/kpty_export.h
   ${KPty_HEADERS}
-  DESTINATION ${KF5_INCLUDE_INSTALL_DIR}/KPty COMPONENT Devel
+  DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF5}/KPty COMPONENT Devel
 )
 
 ########### next target ###############
@@ -50,9 +50,9 @@ install(FILES
 if (NOT HAVE_OPENPTY)
    add_executable(kgrantpty kgrantpty.c)
    ecm_mark_nongui_executable(kgrantpty)
-   install(TARGETS kgrantpty DESTINATION ${KF5_LIBEXEC_INSTALL_DIR})
+   install(TARGETS kgrantpty DESTINATION ${KDE_INSTALL_LIBEXECDIR_KF5})
 endif ()
 
 include(ECMGeneratePriFile)
-ecm_generate_pri_file(BASE_NAME KPty LIB_NAME KF5Pty DEPS "core KCoreAddons" FILENAME_VAR PRI_FILENAME INCLUDE_INSTALL_DIR ${KF5_INCLUDE_INSTALL_DIR}/KPty)
+ecm_generate_pri_file(BASE_NAME KPty LIB_NAME KF5Pty DEPS "core KCoreAddons" FILENAME_VAR PRI_FILENAME INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR_KF5}/KPty)
 install(FILES ${PRI_FILENAME} DESTINATION ${ECM_MKSPECS_INSTALL_DIR})
