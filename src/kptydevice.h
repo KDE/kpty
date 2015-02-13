@@ -60,7 +60,7 @@ public:
      *
      * @return true if a pty pair was successfully opened
      */
-    virtual bool open(OpenMode mode = ReadWrite | Unbuffered);
+    bool open(OpenMode mode = ReadWrite | Unbuffered) Q_DECL_OVERRIDE;
 
     /**
      * Open using an existing pty master. The ownership of the fd
@@ -80,7 +80,7 @@ public:
     /**
      * Close the pty master/slave pair.
      */
-    virtual void close();
+    void close() Q_DECL_OVERRIDE;
 
     /**
      * Sets whether the KPtyDevice monitors the pty for incoming data.
@@ -109,30 +109,30 @@ public:
     /**
      * @return always true
      */
-    virtual bool isSequential() const;
+    bool isSequential() const Q_DECL_OVERRIDE;
 
     /**
      * @reimp
      */
-    bool canReadLine() const;
+    bool canReadLine() const Q_DECL_OVERRIDE;
 
     /**
      * @reimp
      */
-    bool atEnd() const;
+    bool atEnd() const Q_DECL_OVERRIDE;
 
     /**
      * @reimp
      */
-    qint64 bytesAvailable() const;
+    qint64 bytesAvailable() const Q_DECL_OVERRIDE;
 
     /**
      * @reimp
      */
-    qint64 bytesToWrite() const;
+    qint64 bytesToWrite() const Q_DECL_OVERRIDE;
 
-    bool waitForBytesWritten(int msecs = -1);
-    bool waitForReadyRead(int msecs = -1);
+    bool waitForBytesWritten(int msecs = -1) Q_DECL_OVERRIDE;
+    bool waitForReadyRead(int msecs = -1) Q_DECL_OVERRIDE;
 
 Q_SIGNALS:
     /**
@@ -143,9 +143,9 @@ Q_SIGNALS:
     void readEof();
 
 protected:
-    virtual qint64 readData(char *data, qint64 maxSize);
-    virtual qint64 readLineData(char *data, qint64 maxSize);
-    virtual qint64 writeData(const char *data, qint64 maxSize);
+    qint64 readData(char *data, qint64 maxSize) Q_DECL_OVERRIDE;
+    qint64 readLineData(char *data, qint64 maxSize) Q_DECL_OVERRIDE;
+    qint64 writeData(const char *data, qint64 maxSize) Q_DECL_OVERRIDE;
 
 private:
     Q_PRIVATE_SLOT(d_func(), bool _k_canRead())
