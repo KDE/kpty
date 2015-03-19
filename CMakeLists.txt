@@ -3,11 +3,12 @@ cmake_minimum_required(VERSION 2.8.12)
 project(KPty)
 
 find_package(ECM 1.8.0 REQUIRED NO_MODULE)
-set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
+set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 set(REQUIRED_QT_VERSION 5.2)
 set(KF5_VERSION "5.8.0") # handled by release scripts
 set(KF5_DEP_VERSION "5.8.0") # handled by release scripts
+include(FeatureSummary)
 include(KDEInstallDirs)
 include(KDEFrameworkCompilerSettings)
 include(KDECMakeSettings)
@@ -16,6 +17,16 @@ find_package(Qt5 "${REQUIRED_QT_VERSION}" CONFIG REQUIRED Core)
 if ("${CMAKE_BINARY_DIR}" STREQUAL "${CMAKE_CURRENT_BINARY_DIR}")
   find_package(KF5CoreAddons ${KF5_DEP_VERSION} REQUIRED)
   find_package(KF5I18n ${KF5_DEP_VERSION} REQUIRED)
+endif()
+
+if (UNIX)
+  find_package(UTEMPTER)
+  set_package_properties(UTEMPTER PROPERTIES
+      TYPE OPTIONAL
+      PURPOSE "Required by KPty for managing UTMP entries"
+)
+
+  set(HAVE_UTEMPTER ${UTEMPTER_FOUND})
 endif()
 
 # create a Config.cmake and a ConfigVersion.cmake file and install them
