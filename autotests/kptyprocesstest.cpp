@@ -177,7 +177,7 @@ void KPtyProcessTest::slotStep()
     }
 }
 
-Q_DECLARE_METATYPE(QProcess::ExitStatus);
+Q_DECLARE_METATYPE(QProcess::ExitStatus)
 
 void KPtyProcessTest::test_pty_signals()
 {
