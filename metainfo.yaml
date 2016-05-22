@@ -11,3 +11,7 @@ libraries:
  - qmake: KPty
    cmake: "KF5::Pty"
 cmakename: KF5Pty
+
+public_lib: true
+group: Frameworks
+subgroup: Tier 2
