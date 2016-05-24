@@ -110,10 +110,9 @@ public:
         Q_ASSERT(totalSize >= 0);
 
         forever {
-        int nbs = readSize();
+            int nbs = readSize();
 
-            if (bytes < nbs)
-            {
+            if (bytes < nbs) {
                 head += bytes;
                 if (head == tail && buffers.count() == 1) {
                     buffers.first().resize(CHUNKSIZE);
@@ -123,8 +122,7 @@ public:
             }
 
             bytes -= nbs;
-            if (buffers.count() == 1)
-            {
+            if (buffers.count() == 1) {
                 buffers.first().resize(CHUNKSIZE);
                 head = tail = 0;
                 break;
@@ -175,21 +173,18 @@ public:
         int start = head;
         QLinkedList<QByteArray>::ConstIterator it = buffers.begin();
         forever {
-        if (!maxLength)
-            {
+            if (!maxLength) {
                 return index;
             }
-            if (index == size())
-            {
+            if (index == size()) {
                 return -1;
             }
             const QByteArray &buf = *it;
             ++it;
             int len = qMin((it == buffers.end() ? tail : buf.size()) - start,
-            maxLength);
+                           maxLength);
             const char *ptr = buf.data() + start;
-            if (const char *rptr = (const char *)memchr(ptr, c, len))
-            {
+            if (const char *rptr = (const char *)memchr(ptr, c, len)) {
                 return index + (rptr - ptr) + 1;
             }
             index += len;
