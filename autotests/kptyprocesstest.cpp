@@ -189,7 +189,7 @@ void KPtyProcessTest::test_pty_signals()
     connect(sp.pty(), SIGNAL(bytesWritten(qint64)), SLOT(slotBytesWritten()));
     QTimer t;
     connect(&t, SIGNAL(timeout()), SLOT(slotStep()));
-    t.start(50);
+    t.start(200);
     connect(&delay, SIGNAL(timeout()), SLOT(slotDoRead()));
     delay.setSingleShot(true);
     sp.start();
