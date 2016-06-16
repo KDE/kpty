@@ -25,6 +25,7 @@
 #include <QTest>
 #include <QSignalSpy>
 #include <QThread>
+#include <QDebug>
 
 void KPtyProcessTest::test_suspend_pty()
 {
@@ -125,8 +126,11 @@ void KPtyProcessTest::test_pty_basic()
     p.start();
     p.pty()->write("test\n");
     p.pty()->waitForBytesWritten(1000);
-    p.waitForFinished(1000);
-    p.pty()->waitForReadyRead(1000);
+    QVERIFY(p.waitForFinished(5000));
+    while (p.pty()->bytesAvailable() < 18) {
+        qDebug() << p.pty()->bytesAvailable() << "bytes available, waiting";
+        QVERIFY(p.pty()->waitForReadyRead(5000));
+    }
     QString output = p.pty()->readAll();
     QCOMPARE(output, QLatin1String("1: test\r\n2: test\r\n"));
 }
@@ -198,6 +202,7 @@ void KPtyProcessTest::test_pty_signals()
     qRegisterMetaType<QProcess::ExitStatus>();
     QSignalSpy finishedSpy(&sp, SIGNAL(finished(int,QProcess::ExitStatus)));
     QVERIFY(finishedSpy.wait(2000));
+    log.replace("<<", "<"); // It's OK if bytesWritten is emitted multiple times...
     QCOMPARE(QLatin1String(log), QLatin1String(want));
 }
 
