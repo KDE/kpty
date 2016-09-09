@@ -24,6 +24,8 @@
 
 #include "kpty_p.h"
 
+#include <QProcess>
+
 #ifdef __sgi
 #define __svr4__
 #endif
@@ -71,10 +73,19 @@
 # include <util.h>
 #endif
 
-#if HAVE_UTEMPTER
-extern "C" {
-# include <utempter.h>
-}
+#ifdef UTEMPTER_PATH
+class UtemptProcess : public QProcess
+{
+public:
+    virtual void setupChildProcess() override
+    {
+        // These are the file descriptors the utempter helper wants
+        dup2(cmdFd, 0);
+        dup2(cmdFd, 1);
+        dup2(cmdFd, 3);
+    }
+    int cmdFd;
+};
 #else
 # include <utmp.h>
 # if HAVE_UTMPX
@@ -149,6 +160,9 @@ extern "C" {
 KPtyPrivate::KPtyPrivate(KPty *parent) :
     masterFd(-1), slaveFd(-1), ownMaster(true), q_ptr(parent)
 {
+#ifdef UTEMPTER_PATH
+    utempterPath = QStringLiteral(UTEMPTER_PATH);
+#endif
 }
 
 KPtyPrivate::~KPtyPrivate()
@@ -493,11 +507,22 @@ void KPty::setCTty()
 
 void KPty::login(const char *user, const char *remotehost)
 {
-#if HAVE_UTEMPTER
+#ifdef UTEMPTER_PATH
     Q_D(KPty);
 
-    addToUtmp(d->ttyName.constData(), remotehost, d->masterFd);
     Q_UNUSED(user);
+
+    // Emulating libutempter version 1.1.6
+    if (!d->utempterPath.isEmpty()) {
+        UtemptProcess utemptProcess;
+        utemptProcess.cmdFd = d->masterFd;
+        utemptProcess.setProgram(d->utempterPath);
+        utemptProcess.setArguments(QStringList() << QStringLiteral("add") << QString::fromLocal8Bit(remotehost));
+        utemptProcess.setProcessChannelMode(QProcess::ForwardedChannels);
+        utemptProcess.start();
+        utemptProcess.waitForFinished();
+    }
+
 #else
 # if HAVE_UTMPX
     struct utmpx l_struct;
@@ -573,10 +598,20 @@ void KPty::login(const char *user, const char *remotehost)
 
 void KPty::logout()
 {
-#if HAVE_UTEMPTER
+#ifdef UTEMPTER_PATH
     Q_D(KPty);
 
-    removeLineFromUtmp(d->ttyName.constData(), d->masterFd);
+    // Emulating libutempter version 1.1.6
+    if (!d->utempterPath.isEmpty()) {
+        UtemptProcess utemptProcess;
+        utemptProcess.cmdFd = d->masterFd;
+        utemptProcess.setProgram(d->utempterPath);
+        utemptProcess.setArguments(QStringList(QStringLiteral("del")));
+        utemptProcess.setProcessChannelMode(QProcess::ForwardedChannels);
+        utemptProcess.start();
+        utemptProcess.waitForFinished();
+    }
+
 #else
     Q_D(KPty);
 

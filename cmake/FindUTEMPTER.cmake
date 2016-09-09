@@ -32,17 +32,24 @@
 # SUCH DAMAGE.
 
 
-find_path (UTEMPTER_INCLUDE_DIR utempter.h)
+find_program (UTEMPTER_EXECUTABLE utempter PATHS
+    ${CMAKE_PREFIX_PATH}/libexec/utempter
+    ${CMAKE_PREFIX_PATH}/lib/utempter
+    /usr/libexec/utempter
+)
 
-find_library (UTEMPTER_LIBRARIES NAMES utempter )
+if (UTEMPTER_EXECUTABLE)
+    add_definitions(-DUTEMPTER_PATH=\"${UTEMPTER_EXECUTABLE}\")
+endif ()
 
 include (FindPackageHandleStandardArgs)
-find_package_handle_standard_args (UTEMPTER DEFAULT_MSG UTEMPTER_INCLUDE_DIR UTEMPTER_LIBRARIES)
+find_package_handle_standard_args (UTEMPTER DEFAULT_MSG UTEMPTER_EXECUTABLE)
 
-set_package_properties(UTEMPTER PROPERTIES
+
+set_package_properties (UTEMPTER PROPERTIES
     URL "ftp://ftp.altlinux.org/pub/people/ldv/utempter/"
     DESCRIPTION "Allows non-privileged applications such as terminal emulators to modify the utmp database without having to be setuid root."
 )
 
-mark_as_advanced (UTEMPTER_INCLUDE_DIR UTEMPTER_LIBRARIES)
+mark_as_advanced (UTEMPTER_EXECUTABLE)
 

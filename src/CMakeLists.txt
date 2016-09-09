@@ -13,11 +13,6 @@ configure_file(config-pty.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-pty.h )
 
 target_include_directories(KF5Pty INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF5}/KPty>")
 
-if (UTEMPTER_FOUND)
-   include_directories(${UTEMPTER_INCLUDE_DIR})
-   set(kpty_OPTIONAL_LIBS ${UTEMPTER_LIBRARIES})
-endif ()
-
 target_link_libraries(KF5Pty PUBLIC Qt5::Core
                                     KF5::CoreAddons # KProcess
                              PRIVATE

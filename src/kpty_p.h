@@ -41,6 +41,7 @@ struct KPtyPrivate {
     bool ownMaster: 1;
 
     QByteArray ttyName;
+    QString utempterPath;
 
     KPty *q_ptr;
 };
