@@ -33,8 +33,8 @@
 
 
 find_program (UTEMPTER_EXECUTABLE utempter PATHS
-    ${CMAKE_PREFIX_PATH}/libexec/utempter
-    ${CMAKE_PREFIX_PATH}/lib/utempter
+    ${KDE_INSTALL_FULL_LIBEXECDIR}/utempter
+    ${KDE_INSTALL_FULL_LIBDIR}/utempter
     /usr/libexec/utempter
 )
 
