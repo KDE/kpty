@@ -32,7 +32,9 @@
 # SUCH DAMAGE.
 
 
-find_program (UTEMPTER_EXECUTABLE utempter PATHS
+# use find_file instead of find_program until this is fixed:
+# https://gitlab.kitware.com/cmake/cmake/issues/10468
+find_file (UTEMPTER_EXECUTABLE utempter PATHS
     ${KDE_INSTALL_FULL_LIBEXECDIR}/utempter
     ${KDE_INSTALL_FULL_LIBDIR}/utempter
     /usr/libexec/utempter
