@@ -42,6 +42,16 @@ find_file (UTEMPTER_EXECUTABLE utempter PATHS
     /usr/libexec/utempter
 )
 
+# On FreeBSD for example we have to use ulog-helper
+if (NOT UTEMPTER_EXECUTABLE)
+    find_program (UTEMPTER_EXECUTABLE ulog-helper PATHS
+        /usr/libexec
+    )
+    if (UTEMPTER_EXECUTABLE)
+        add_definitions(-DUTEMPTER_ULOG=1)
+    endif ()
+endif ()
+
 if (UTEMPTER_EXECUTABLE)
     add_definitions(-DUTEMPTER_PATH=\"${UTEMPTER_EXECUTABLE}\")
 endif ()

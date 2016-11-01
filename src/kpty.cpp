@@ -74,6 +74,14 @@
 #endif
 
 #ifdef UTEMPTER_PATH
+// utempter uses 'add' and 'del' whereas ulog-helper uses 'login' and 'logout'
+#  ifndef UTEMPTER_ULOG
+#    define UTEMPTER_ADD "add"
+#    define UTEMPTER_DEL "del"
+#  else
+#    define UTEMPTER_ADD "login"
+#    define UTEMPTER_DEL "logout"
+#  endif
 class UtemptProcess : public QProcess
 {
 public:
@@ -517,7 +525,7 @@ void KPty::login(const char *user, const char *remotehost)
         UtemptProcess utemptProcess;
         utemptProcess.cmdFd = d->masterFd;
         utemptProcess.setProgram(d->utempterPath);
-        utemptProcess.setArguments(QStringList() << QStringLiteral("add") << QString::fromLocal8Bit(remotehost));
+        utemptProcess.setArguments(QStringList() << QStringLiteral(UTEMPTER_ADD) << QString::fromLocal8Bit(remotehost));
         utemptProcess.setProcessChannelMode(QProcess::ForwardedChannels);
         utemptProcess.start();
         utemptProcess.waitForFinished();
@@ -606,7 +614,7 @@ void KPty::logout()
         UtemptProcess utemptProcess;
         utemptProcess.cmdFd = d->masterFd;
         utemptProcess.setProgram(d->utempterPath);
-        utemptProcess.setArguments(QStringList(QStringLiteral("del")));
+        utemptProcess.setArguments(QStringList(QStringLiteral(UTEMPTER_DEL)));
         utemptProcess.setProcessChannelMode(QProcess::ForwardedChannels);
         utemptProcess.start();
         utemptProcess.waitForFinished();
