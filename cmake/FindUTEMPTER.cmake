@@ -40,6 +40,7 @@ find_file (UTEMPTER_EXECUTABLE utempter PATHS
     ${CMAKE_PREFIX_PATH}/libexec/utempter
     ${CMAKE_PREFIX_PATH}/lib/utempter
     /usr/libexec/utempter
+    /usr/lib/${CMAKE_LIBRARY_ARCHITECTURE}/utempter
 )
 
 # On FreeBSD for example we have to use ulog-helper
