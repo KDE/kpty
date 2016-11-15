@@ -10,7 +10,7 @@ feature_summary(WHAT REQUIRED_PACKAGES_NOT_FOUND FATAL_ON_MISSING_REQUIRED_PACKA
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 set(REQUIRED_QT_VERSION 5.5.0)
-set(KF5_VERSION "5.28.0") # handled by release scripts
+set(KF5_VERSION "5.29.0") # handled by release scripts
 set(KF5_DEP_VERSION "5.28.0") # handled by release scripts
 
 include(KDEInstallDirs)
