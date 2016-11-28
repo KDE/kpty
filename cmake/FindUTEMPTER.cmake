@@ -37,10 +37,11 @@
 find_file (UTEMPTER_EXECUTABLE utempter PATHS
     ${KDE_INSTALL_FULL_LIBEXECDIR}/utempter
     ${KDE_INSTALL_FULL_LIBDIR}/utempter
-    ${CMAKE_PREFIX_PATH}/libexec/utempter
-    ${CMAKE_PREFIX_PATH}/lib/utempter
+    ${CMAKE_INSTALL_PREFIX}/libexec/utempter
+    ${CMAKE_INSTALL_PREFIX}/lib/utempter
     /usr/libexec/utempter
     /usr/lib/${CMAKE_LIBRARY_ARCHITECTURE}/utempter
+    /usr/lib/utempter
 )
 
 # On FreeBSD for example we have to use ulog-helper
