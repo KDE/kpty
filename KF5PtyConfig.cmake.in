@@ -1,5 +1,6 @@
 @PACKAGE_INIT@
 
+include(CMakeFindDependencyMacro)
 find_dependency(KF5CoreAddons "@KF5_DEP_VERSION@")
 
 set(KPty_HAVE_UTEMPTER "@UTEMPTER_FOUND@")
