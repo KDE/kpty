@@ -163,7 +163,7 @@ static const char *const feeds[] = {
     "foo\x04", "bar\n",
     "fooish\nbar\n",
     "\x04",
-    0
+    nullptr
 };
 
 static const char want[] =
