@@ -39,6 +39,7 @@ set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KF5Pty")
 # Includes
 
 include(GenerateExportHeader)
+include(ECMMarkNonGuiExecutable)
 include(ECMSetupVersion)
 include(ECMGenerateHeaders)
 include(CMakePackageConfigHelpers)
