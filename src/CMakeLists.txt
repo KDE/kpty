@@ -45,6 +45,29 @@ install(FILES
   DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF5}/KPty COMPONENT Devel
 )
 
+if(BUILD_QCH)
+    ecm_add_qch(
+        KF5Pty_QCH
+        NAME KPty
+        BASE_NAME KF5Pty
+        VERSION ${KF5_VERSION}
+        ORG_DOMAIN org.kde
+        SOURCES # using only public headers, to cover only public API
+            ${KPty_HEADERS}
+        MD_MAINPAGE "${CMAKE_SOURCE_DIR}/README.md"
+        LINK_QCHS
+            Qt5Core_QCH
+            KF5CoreAddons_QCH
+        BLANK_MACROS
+            KPTY_EXPORT
+            KPTY_DEPRECATED
+            KPTY_DEPRECATED_EXPORT
+        TAGFILE_INSTALL_DESTINATION ${KDE_INSTALL_QTQCHDIR}
+        QCH_INSTALL_DESTINATION ${KDE_INSTALL_QTQCHDIR}
+        COMPONENT Devel
+    )
+endif()
+
 ########### next target ###############
 
 if (NOT HAVE_OPENPTY)

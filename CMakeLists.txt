@@ -43,6 +43,10 @@ include(ECMMarkNonGuiExecutable)
 include(ECMSetupVersion)
 include(ECMGenerateHeaders)
 include(CMakePackageConfigHelpers)
+include(ECMAddQch)
+
+option(BUILD_QCH "Build API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)" OFF)
+add_feature_info(QCH ${BUILD_QCH} "API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)")
 
 ecm_setup_version(
   PROJECT
@@ -51,18 +55,28 @@ ecm_setup_version(
   PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF5PtyConfigVersion.cmake"
   SOVERSION 5)
 
-configure_package_config_file(
-  "${CMAKE_CURRENT_SOURCE_DIR}/KF5PtyConfig.cmake.in"
-  "${CMAKE_CURRENT_BINARY_DIR}/KF5PtyConfig.cmake"
-  INSTALL_DESTINATION  ${CMAKECONFIG_INSTALL_DIR}
-)
-
 add_definitions(-DTRANSLATION_DOMAIN=\"kpty5\")
 if (IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/po")
     ki18n_install(po)
 endif()
 add_subdirectory( src )
 add_subdirectory( autotests )
+
+if (BUILD_QCH)
+    ecm_install_qch_export(
+        TARGETS KF5Pty_QCH
+        FILE KF5PtyQchTargets.cmake
+        DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
+        COMPONENT Devel
+    )
+    set(PACKAGE_INCLUDE_QCHTARGETS "include(\"\${CMAKE_CURRENT_LIST_DIR}/KF5PtyQchTargets.cmake\")")
+endif()
+
+configure_package_config_file(
+  "${CMAKE_CURRENT_SOURCE_DIR}/KF5PtyConfig.cmake.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/KF5PtyConfig.cmake"
+  INSTALL_DESTINATION  ${CMAKECONFIG_INSTALL_DIR}
+)
 
 install(FILES
   "${CMAKE_CURRENT_BINARY_DIR}/KF5PtyConfig.cmake"
