@@ -26,6 +26,7 @@
 #include <QSignalSpy>
 #include <QThread>
 #include <QDebug>
+#include <QStandardPaths>
 
 void KPtyProcessTest::test_suspend_pty()
 {
@@ -119,8 +120,13 @@ void KPtyProcessTest::test_shared_pty()
 
 void KPtyProcessTest::test_pty_basic()
 {
+    const QString bash = QStandardPaths::findExecutable("bash");
+    if (bash.isEmpty()) {
+        QSKIP("bash is not installed");
+    }
+
     KPtyProcess p;
-    p.setProgram("/bin/bash", QStringList() << "-c" << "read -s VAL; echo \"1: $VAL\"; echo \"2: $VAL\" >&2");
+    p.setProgram(bash, QStringList() << "-c" << "read -s VAL; echo \"1: $VAL\"; echo \"2: $VAL\" >&2");
     p.setPtyChannels(KPtyProcess::AllChannels);
     p.pty()->setEcho(false);
     p.start();
