@@ -26,6 +26,7 @@
 #include <config-pty.h>
 
 #include <QtCore/QByteArray>
+#include <QtCore/QString>
 
 struct KPtyPrivate {
     Q_DECLARE_PUBLIC(KPty)
