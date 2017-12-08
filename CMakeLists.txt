@@ -18,10 +18,8 @@ include(KDEFrameworkCompilerSettings NO_POLICY_SCOPE)
 include(KDECMakeSettings)
 find_package(Qt5 "${REQUIRED_QT_VERSION}" CONFIG REQUIRED Core)
 
-if ("${CMAKE_BINARY_DIR}" STREQUAL "${CMAKE_CURRENT_BINARY_DIR}")
-  find_package(KF5CoreAddons ${KF5_DEP_VERSION} REQUIRED)
-  find_package(KF5I18n ${KF5_DEP_VERSION} REQUIRED)
-endif()
+find_package(KF5CoreAddons ${KF5_DEP_VERSION} REQUIRED)
+find_package(KF5I18n ${KF5_DEP_VERSION} REQUIRED)
 
 if (UNIX)
   find_package(UTEMPTER)
@@ -92,6 +90,4 @@ install(FILES
   DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF5} COMPONENT Devel
 )
 
-if ("${CMAKE_BINARY_DIR}" STREQUAL "${CMAKE_CURRENT_BINARY_DIR}")
-  feature_summary(WHAT ALL   FATAL_ON_MISSING_REQUIRED_PACKAGES)
-endif()
+feature_summary(WHAT ALL   FATAL_ON_MISSING_REQUIRED_PACKAGES)
