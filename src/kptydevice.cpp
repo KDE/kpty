@@ -60,8 +60,8 @@
 // Helper. Remove when QRingBuffer becomes public. //
 /////////////////////////////////////////////////////
 
-#include <QtCore/qbytearray.h>
-#include <QtCore/qlinkedlist.h>
+#include <qbytearray.h>
+#include <qlinkedlist.h>
 
 #define CHUNKSIZE 4096
 

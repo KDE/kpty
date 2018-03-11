@@ -23,7 +23,7 @@
 
 #include "kpty.h"
 
-#include <QtCore/QIODevice>
+#include <QIODevice>
 
 struct KPtyDevicePrivate;
 

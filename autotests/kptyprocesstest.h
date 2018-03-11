@@ -24,7 +24,7 @@
 
 #include <kptyprocess.h>
 
-#include <QtCore/QTimer>
+#include <QTimer>
 
 class KPtyProcessTest : public QObject
 {
