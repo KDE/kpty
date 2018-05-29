@@ -45,7 +45,7 @@ public:
     /**
      * Constructor
      */
-    KPtyDevice(QObject *parent = nullptr);
+    explicit KPtyDevice(QObject *parent = nullptr);
 
     /**
      * Destructor:
@@ -53,7 +53,7 @@ public:
      *  If the pty is still open, it will be closed. Note, however, that
      *  an utmp registration is @em not undone.
      */
-    virtual ~KPtyDevice();
+    ~KPtyDevice() override;
 
     /**
      * Create a pty master/slave pair.

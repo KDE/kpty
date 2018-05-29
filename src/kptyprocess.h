@@ -79,7 +79,7 @@ public:
     /**
      * Destructor
      */
-    virtual ~KPtyProcess();
+    ~KPtyProcess() override;
 
     /**
      * Set to which channels the PTY should be assigned.
