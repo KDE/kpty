@@ -58,7 +58,9 @@ if (IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/po")
     ki18n_install(po)
 endif()
 add_subdirectory( src )
-add_subdirectory( autotests )
+if (BUILD_TESTING)
+    add_subdirectory( autotests )
+endif()
 
 if (BUILD_QCH)
     ecm_install_qch_export(
