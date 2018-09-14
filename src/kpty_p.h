@@ -28,7 +28,9 @@
 #include <QByteArray>
 #include <QString>
 
-struct KPtyPrivate {
+class KPtyPrivate
+{
+public:
     Q_DECLARE_PUBLIC(KPty)
 
     KPtyPrivate(KPty *parent);

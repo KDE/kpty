@@ -25,7 +25,7 @@
 
 #include <qglobal.h>
 
-struct KPtyPrivate;
+class KPtyPrivate;
 struct termios;
 
 /**
