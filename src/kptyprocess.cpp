@@ -31,7 +31,8 @@
 // private data //
 //////////////////
 
-struct KPtyProcessPrivate {
+class KPtyProcessPrivate {
+public:
     KPtyProcessPrivate() :
         ptyChannels(KPtyProcess::NoChannels),
         addUtmp(false)

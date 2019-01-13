@@ -28,7 +28,7 @@
 
 class KPtyDevice;
 
-struct KPtyProcessPrivate;
+class KPtyProcessPrivate;
 
 /**
  * This class extends KProcess by support for PTYs (pseudo TTYs).
