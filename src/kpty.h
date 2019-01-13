@@ -51,6 +51,9 @@ public:
     */
     ~KPty();
 
+    KPty(const KPty &) = delete;
+    KPty &operator=(const KPty &) = delete;
+
     /**
      * Create a pty master/slave pair.
      *
