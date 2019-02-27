@@ -85,7 +85,7 @@
 class UtemptProcess : public QProcess
 {
 public:
-    virtual void setupChildProcess() override
+    void setupChildProcess() override
     {
         // These are the file descriptors the utempter helper wants
         dup2(cmdFd, 0);
