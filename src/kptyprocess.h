@@ -51,6 +51,9 @@ class KPTY_EXPORT KPtyProcess : public KProcess
     Q_DECLARE_PRIVATE(KPtyProcess)
 
 public:
+    /**
+     * @see PtyChannels
+     */
     enum PtyChannelFlag {
         NoChannels = 0, /**< The PTY is not connected to any channel. */
         StdinChannel = 1, /**< Connect PTY to stdin. */
@@ -60,6 +63,9 @@ public:
         AllChannels = 7 /**< Connect PTY to all channels. */
     };
 
+    /**
+     * Stores a combination of #PtyChannelFlag values.
+     */
     Q_DECLARE_FLAGS(PtyChannels, PtyChannelFlag)
 
     /**
