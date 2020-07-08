@@ -14,7 +14,7 @@
 
 #include <QSocketNotifier>
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 #include <unistd.h>
 #include <errno.h>
@@ -46,8 +46,8 @@
 // Helper. Remove when QRingBuffer becomes public. //
 /////////////////////////////////////////////////////
 
-#include <qbytearray.h>
-#include <qlinkedlist.h>
+#include <QByteArray>
+#include <QLinkedList>
 
 #define CHUNKSIZE 4096
 

@@ -8,7 +8,7 @@
 #ifndef KPTYPROCESS_H
 #define KPTYPROCESS_H
 
-#include <kprocess.h>
+#include <KProcess>
 
 #include "kpty_export.h"
 
