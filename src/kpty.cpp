@@ -10,6 +10,7 @@
 
 #include "kpty_p.h"
 
+#include <kpty_debug.h>
 #include <QProcess>
 
 #ifdef __sgi
@@ -128,7 +129,6 @@ extern "C" {
 # define _tcsetattr(fd, ttmode) ioctl(fd, TCSETS, (char *)ttmode)
 #endif
 
-#include <QDebug>
 #include <qplatformdefs.h>
 
 #include <Q_PID>
@@ -217,7 +217,7 @@ bool KPty::open()
     if (::openpty(&d->masterFd, &d->slaveFd, ptsn, nullptr, nullptr)) {
         d->masterFd = -1;
         d->slaveFd = -1;
-        qWarning() << "Can't open a pseudo teletype";
+        qCWarning(KPTY_LOG) << "Can't open a pseudo teletype";
         return false;
     }
     d->ttyName = ptsn;
@@ -307,7 +307,7 @@ bool KPty::open()
         }
     }
 
-    qWarning() << "Can't open a pseudo teletype";
+    qCWarning(KPTY_LOG) << "Can't open a pseudo teletype";
     return false;
 
 gotpty:
@@ -320,7 +320,7 @@ gotpty:
     if (((info.ownerId() != getuid()) ||
             (info.permissions() & (QFile::ReadGroup | QFile::ExeGroup | QFile::ReadOther | QFile::WriteOther | QFile::ExeOther))) &&
             !d->chownpty(true)) {
-        qWarning()
+        qCWarning(KPTY_LOG)
                 << "chownpty failed for device " << ptyName << "::" << d->ttyName
                 << "\nThis means the communication can be eavesdropped." << endl;
     }
@@ -340,7 +340,7 @@ grantedpt:
 
     d->slaveFd = QT_OPEN(d->ttyName.data(), QT_OPEN_RDWR | O_NOCTTY);
     if (d->slaveFd < 0) {
-        qWarning() << "Can't open slave pseudo teletype";
+        qCWarning(KPTY_LOG) << "Can't open slave pseudo teletype";
         ::close(d->masterFd);
         d->masterFd = -1;
         return false;
@@ -374,13 +374,13 @@ grantedpt:
 bool KPty::open(int fd)
 {
 #if !HAVE_PTSNAME && !defined(TIOCGPTN)
-    qWarning() << "Unsupported attempt to open pty with fd" << fd;
+    qCWarning(KPTY_LOG) << "Unsupported attempt to open pty with fd" << fd;
     return false;
 #else
     Q_D(KPty);
 
     if (d->masterFd >= 0) {
-        qWarning() << "Attempting to open an already open pty";
+        qCWarning(KPTY_LOG) << "Attempting to open an already open pty";
         return false;
     }
 
@@ -398,7 +398,7 @@ bool KPty::open(int fd)
         d->ttyName = buf;
 # endif
     } else {
-        qWarning() << "Failed to determine pty slave device for fd" << fd;
+        qCWarning(KPTY_LOG) << "Failed to determine pty slave device for fd" << fd;
         return false;
     }
 
@@ -431,12 +431,12 @@ bool KPty::openSlave()
         return true;
     }
     if (d->masterFd < 0) {
-        qWarning() << "Attempting to open pty slave while master is closed";
+        qCWarning(KPTY_LOG) << "Attempting to open pty slave while master is closed";
         return false;
     }
     d->slaveFd = QT_OPEN(d->ttyName.data(), QT_OPEN_RDWR | O_NOCTTY);
     if (d->slaveFd < 0) {
-        qWarning() << "Can't open slave pseudo teletype";
+        qCWarning(KPTY_LOG) << "Can't open slave pseudo teletype";
         return false;
     }
     fcntl(d->slaveFd, F_SETFD, FD_CLOEXEC);

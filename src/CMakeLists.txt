@@ -4,6 +4,14 @@ set(kpty_LIB_SRCS
    kptyprocess.cpp
 )
 
+ecm_qt_declare_logging_category(kpty_LIB_SRCS
+    HEADER kpty_debug.h
+    IDENTIFIER KPTY_LOG
+    CATEGORY_NAME kf.pty
+    DESCRIPTION "KPty"
+    EXPORT KPTY
+)
+
 add_library(KF5Pty ${kpty_LIB_SRCS})
 generate_export_header(KF5Pty BASE_NAME KPty)
 add_library(KF5::Pty ALIAS KF5Pty)
@@ -81,3 +89,9 @@ endif ()
 include(ECMGeneratePriFile)
 ecm_generate_pri_file(BASE_NAME KPty LIB_NAME KF5Pty DEPS "core KCoreAddons" FILENAME_VAR PRI_FILENAME INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR_KF5}/KPty)
 install(FILES ${PRI_FILENAME} DESTINATION ${ECM_MKSPECS_INSTALL_DIR})
+
+ecm_qt_install_logging_categories(
+    EXPORT KPTY
+    FILE kpty.categories
+    DESTINATION "${KDE_INSTALL_LOGGINGCATEGORIESDIR}"
+)

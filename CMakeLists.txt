@@ -40,6 +40,7 @@ include(GenerateExportHeader)
 include(ECMMarkNonGuiExecutable)
 include(ECMSetupVersion)
 include(ECMGenerateHeaders)
+include(ECMQtDeclareLoggingCategory)
 include(CMakePackageConfigHelpers)
 include(ECMAddQch)
 
