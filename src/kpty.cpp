@@ -13,19 +13,6 @@
 #include <kpty_debug.h>
 #include <QProcess>
 
-#ifdef __sgi
-#define __svr4__
-#endif
-
-#ifdef __osf__
-#define _OSF_SOURCE
-#include <float.h>
-#endif
-
-#ifdef _AIX
-#define _ALL_SOURCE
-#endif
-
 // __USE_XOPEN isn't defined by default in ICC
 // (needed for ptsname(), grantpt() and unlockpt())
 #ifdef __INTEL_COMPILER
@@ -224,15 +211,7 @@ bool KPty::open()
 
 #else
 
-#if HAVE__GETPTY // irix
-
-    char *ptsn = _getpty(&d->masterFd, O_RDWR | O_NOCTTY, S_IRUSR | S_IWUSR, 0);
-    if (ptsn) {
-        d->ttyName = ptsn;
-        goto grantedpt;
-    }
-
-#elif HAVE_PTSNAME || defined(TIOCGPTN)
+#if HAVE_PTSNAME || defined(TIOCGPTN)
 
 #if HAVE_POSIX_OPENPT
     d->masterFd = ::posix_openpt(O_RDWR | O_NOCTTY);
@@ -276,18 +255,6 @@ bool KPty::open()
 
             d->masterFd = QT_OPEN(ptyName.data(), QT_OPEN_RDWR);
             if (d->masterFd >= 0) {
-#ifdef Q_OS_SOLARIS
-                /* Need to check the process group of the pty.
-                 * If it exists, then the slave pty is in use,
-                 * and we need to get another one.
-                 */
-                int pgrp_rtn;
-                if (ioctl(d->masterFd, TIOCGPGRP, &pgrp_rtn) == 0 || errno != EIO) {
-                    ::close(d->masterFd);
-                    d->masterFd = -1;
-                    continue;
-                }
-#endif /* Q_OS_SOLARIS */
                 if (!access(d->ttyName.data(), R_OK | W_OK)) { // checks availability based on permission bits
                     if (!geteuid()) {
                         struct group *p = getgrnam(TTY_GROUP);
@@ -345,23 +312,6 @@ grantedpt:
         d->masterFd = -1;
         return false;
     }
-
-#if (defined(__svr4__) || defined(__sgi__) || defined(Q_OS_SOLARIS))
-    // Solaris uses STREAMS for terminal handling. It is possible
-    // for the pty handling modules to be left off the stream; in that
-    // case push them on. ioctl(fd, I_FIND, ...) is documented to return
-    // 1 if the module is on the stream already.
-    {
-        static const char *pt = "ptem";
-        static const char *ld = "ldterm";
-        if (ioctl(d->slaveFd, I_FIND, pt) == 0) {
-            ioctl(d->slaveFd, I_PUSH, pt);
-        }
-        if (ioctl(d->slaveFd, I_FIND, ld) == 0) {
-            ioctl(d->slaveFd, I_PUSH, ld);
-        }
-    }
-#endif
 
 #endif /* HAVE_OPENPTY */
 
@@ -483,20 +433,11 @@ void KPty::setCTty()
     setsid();
 
     // make our slave pty the new controlling terminal.
-#ifdef TIOCSCTTY
     ioctl(d->slaveFd, TIOCSCTTY, 0);
-#else
-    // __svr4__ hack: the first tty opened after setsid() becomes controlling tty
-    ::close(KDE_open(d->ttyName, O_WRONLY, 0));
-#endif
 
     // make our new process group the foreground group on the pty
     int pgrp = getpid();
-#if defined(_POSIX_VERSION) || defined(__svr4__)
     tcsetpgrp(d->slaveFd, pgrp);
-#elif defined(TIOCSPGRP)
-    ioctl(d->slaveFd, TIOCSPGRP, (char *)&pgrp);
-#endif
 }
 
 void KPty::login(const char *user, const char *remotehost)
@@ -673,11 +614,6 @@ bool KPty::tcGetAttr(struct ::termios *ttmode) const
 {
     Q_D(const KPty);
 
-#ifdef Q_OS_SOLARIS
-    if (_tcgetattr(d->slaveFd, ttmode) == 0) {
-        return true;
-    }
-#endif
     return _tcgetattr(d->masterFd, ttmode) == 0;
 }
 
@@ -685,11 +621,6 @@ bool KPty::tcSetAttr(struct ::termios *ttmode)
 {
     Q_D(KPty);
 
-#ifdef Q_OS_SOLARIS
-    if (_tcsetattr(d->slaveFd, ttmode) == 0) {
-        return true;
-    }
-#endif
     return _tcsetattr(d->masterFd, ttmode) == 0;
 }
 
