@@ -262,49 +262,10 @@ bool KPtyDevicePrivate::_k_canRead()
     Q_Q(KPtyDevice);
     qint64 readBytes = 0;
 
-#ifdef Q_OS_IRIX // this should use a config define, but how to check it?
-    size_t available;
-#else
     int available;
-#endif
     if (!::ioctl(q->masterFd(), PTY_BYTES_AVAILABLE, (char *) &available)) {
-#ifdef Q_OS_SOLARIS
-        // A Pty is a STREAMS module, and those can be activated
-        // with 0 bytes available. This happens either when ^C is
-        // pressed, or when an application does an explicit write(a,b,0)
-        // which happens in experiments fairly often. When 0 bytes are
-        // available, you must read those 0 bytes to clear the STREAMS
-        // module, but we don't want to hit the !readBytes case further down.
-        if (!available) {
-            char c;
-            // Read the 0-byte STREAMS message
-            NO_INTR(readBytes, read(q->masterFd(), &c, 0));
-            // Should return 0 bytes read; -1 is error
-            if (readBytes < 0) {
-                readNotifier->setEnabled(false);
-                emit q->readEof();
-                return false;
-            }
-            return true;
-        }
-#endif
-
         char *ptr = readBuffer.reserve(available);
-#ifdef Q_OS_SOLARIS
-        // Even if available > 0, it is possible for read()
-        // to return 0 on Solaris, due to 0-byte writes in the stream.
-        // Ignore them and keep reading until we hit *some* data.
-        // In Solaris it is possible to have 15 bytes available
-        // and to (say) get 0, 0, 6, 0 and 9 bytes in subsequent reads.
-        // Because the stream is set to O_NONBLOCK in finishOpen(),
-        // an EOF read will return -1.
-        readBytes = 0;
-        while (!readBytes)
-#endif
-            // Useless block braces except in Solaris
-        {
-            NO_INTR(readBytes, read(q->masterFd(), ptr, available));
-        }
+        NO_INTR(readBytes, read(q->masterFd(), ptr, available));
         if (readBytes < 0) {
             readBuffer.unreserve(available);
             q->setErrorString(i18n("Error reading from PTY"));
