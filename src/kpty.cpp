@@ -176,7 +176,6 @@ KPty::KPty(KPtyPrivate *d) :
 KPty::~KPty()
 {
     close();
-    delete d_ptr;
 }
 
 bool KPty::open()

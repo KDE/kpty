@@ -12,6 +12,8 @@
 
 #include "kpty_export.h"
 
+#include <memory>
+
 class KPtyDevice;
 
 class KPtyProcessPrivate;
@@ -125,7 +127,7 @@ protected:
 private:
     Q_PRIVATE_SLOT(d_func(), void _k_onStateChanged(QProcess::ProcessState))
 
-    KPtyProcessPrivate *const d_ptr;
+    std::unique_ptr<KPtyProcessPrivate> const d_ptr;
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(KPtyProcess::PtyChannels)

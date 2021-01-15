@@ -69,7 +69,6 @@ KPtyProcess::~KPtyProcess()
                    this, SLOT(_k_onStateChanged(QProcess::ProcessState)));
     }
     delete d->pty;
-    delete d_ptr;
 }
 
 void KPtyProcess::setPtyChannels(PtyChannels channels)
