@@ -12,7 +12,7 @@
 
 #include <QIODevice>
 
-struct KPtyDevicePrivate;
+class KPtyDevicePrivate;
 
 /**
  * Encapsulates KPty into a QIODevice, so it can be used with Q*Stream, etc.

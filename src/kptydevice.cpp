@@ -233,9 +233,10 @@ static void qt_ignore_sigpipe()
 
 #define NO_INTR(ret,func) do { ret = func; } while (ret < 0 && errno == EINTR)
 
-struct KPtyDevicePrivate : public KPtyPrivate {
+class KPtyDevicePrivate : public KPtyPrivate
+{
     Q_DECLARE_PUBLIC(KPtyDevice)
-
+public:
     KPtyDevicePrivate(KPty *parent) :
         KPtyPrivate(parent),
         emittedReadyRead(false), emittedBytesWritten(false),
