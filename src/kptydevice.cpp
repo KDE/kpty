@@ -277,12 +277,12 @@ bool KPtyDevicePrivate::_k_canRead()
 
     if (!readBytes) {
         readNotifier->setEnabled(false);
-        emit q->readEof();
+        Q_EMIT q->readEof();
         return false;
     } else {
         if (!emittedReadyRead) {
             emittedReadyRead = true;
-            emit q->readyRead();
+            Q_EMIT q->readyRead();
             emittedReadyRead = false;
         }
         return true;
@@ -311,7 +311,7 @@ bool KPtyDevicePrivate::_k_canWrite()
 
     if (!emittedBytesWritten) {
         emittedBytesWritten = true;
-        emit q->bytesWritten(wroteBytes);
+        Q_EMIT q->bytesWritten(wroteBytes);
         emittedBytesWritten = false;
     }
 
