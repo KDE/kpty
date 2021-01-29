@@ -58,7 +58,7 @@ if(BUILD_QCH)
         KF5Pty_QCH
         NAME KPty
         BASE_NAME KF5Pty
-        VERSION ${KF5_VERSION}
+        VERSION ${KF_VERSION}
         ORG_DOMAIN org.kde
         SOURCES # using only public headers, to cover only public API
             ${KPty_HEADERS}
