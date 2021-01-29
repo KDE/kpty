@@ -43,3 +43,5 @@ int openpty(int *, int *, char *, struct termios *, struct winsize *);
 __END_DECLS
 #endif
 
+#define CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}"
+#define KDE_INSTALL_LIBEXECDIR_KF5 "${KDE_INSTALL_LIBEXECDIR_KF5}"
