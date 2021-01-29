@@ -30,7 +30,7 @@
 #endif
 
 #if defined(Q_OS_FREEBSD) || defined(Q_OS_MAC)
-// "the other end's output queue size" - kinda braindead, huh?
+// "the other end's output queue size" -- that is is our end's input
 #define PTY_BYTES_AVAILABLE TIOCOUTQ
 #elif defined(TIOCINQ)
 // "our end's input queue size"
@@ -353,7 +353,7 @@ bool KPtyDevicePrivate::_k_canWrite()
 bool KPtyDevicePrivate::doWait(int msecs, bool reading)
 {
     Q_Q(KPtyDevice);
-#ifndef __linux__
+#ifndef Q_OS_LINUX
     struct timeval etv;
 #endif
     struct timeval tv, *tvp;
@@ -363,8 +363,8 @@ bool KPtyDevicePrivate::doWait(int msecs, bool reading)
     } else {
         tv.tv_sec = msecs / 1000;
         tv.tv_usec = (msecs % 1000) * 1000;
-#ifndef __linux__
-        gettimeofday(&etv, 0);
+#ifndef Q_OS_LINUX
+        gettimeofday(&etv, nullptr);
         timeradd(&tv, &etv, &etv);
 #endif
         tvp = &tv;
@@ -384,9 +384,9 @@ bool KPtyDevicePrivate::doWait(int msecs, bool reading)
             FD_SET(q->masterFd(), &wfds);
         }
 
-#ifndef __linux__
+#ifndef Q_OS_LINUX
         if (tvp) {
-            gettimeofday(&tv, 0);
+            gettimeofday(&tv, nullptr);
             timersub(&etv, &tv, &tv);
             if (tv.tv_sec < 0) {
                 tv.tv_sec = tv.tv_usec = 0;
