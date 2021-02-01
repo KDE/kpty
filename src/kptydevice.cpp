@@ -95,7 +95,7 @@ public:
         totalSize -= bytes;
         Q_ASSERT(totalSize >= 0);
 
-        forever {
+        for (;;) {
             int nbs = readSize();
 
             if (bytes < nbs) {
@@ -158,7 +158,7 @@ public:
         int index = 0;
         int start = head;
         QVector<QByteArray>::ConstIterator it = buffers.begin();
-        forever {
+        for (;;) {
             if (!maxLength) {
                 return index;
             }
