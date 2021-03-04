@@ -286,8 +286,10 @@ gotpty:
     }
     // had it happen when pty #349 was allocated.  I guess
     // there was some sort of leak?  I only had a few open.
-    if (((info.ownerId() != getuid()) || (info.permissions() & (QFile::ReadGroup | QFile::ExeGroup | QFile::ReadOther | QFile::WriteOther | QFile::ExeOther)))
-        && !d->chownpty(true)) {
+    /* clang-format off */
+    if ((info.ownerId() != getuid()
+            || (info.permissions() & (QFile::ReadGroup | QFile::ExeGroup | QFile::ReadOther | QFile::WriteOther | QFile::ExeOther)))
+        && !d->chownpty(true)) { /* clang-format on */
         qCWarning(KPTY_LOG) << "chownpty failed for device " << ptyName << "::" << d->ttyName << "\nThis means the communication can be eavesdropped." << endl;
     }
 
