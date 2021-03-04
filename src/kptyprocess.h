@@ -48,7 +48,7 @@ public:
         StdoutChannel = 2, /**< Connect PTY to stdout. */
         StderrChannel = 4, /**< Connect PTY to stderr. */
         AllOutputChannels = 6, /**< Connect PTY to all output channels. */
-        AllChannels = 7 /**< Connect PTY to all channels. */
+        AllChannels = 7, /**< Connect PTY to all channels. */
     };
 
     /**
