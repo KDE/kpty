@@ -16,28 +16,28 @@
 
 #include <KLocalizedString>
 
-#include <unistd.h>
 #include <errno.h>
-#include <signal.h>
-#include <termios.h>
 #include <fcntl.h>
+#include <signal.h>
 #include <sys/ioctl.h>
+#include <termios.h>
+#include <unistd.h>
 #if HAVE_SYS_FILIO_H
-# include <sys/filio.h>
+#include <sys/filio.h>
 #endif
 #if HAVE_SYS_TIME_H
-# include <sys/time.h>
+#include <sys/time.h>
 #endif
 
 #if defined(Q_OS_FREEBSD) || defined(Q_OS_MAC)
 // "the other end's output queue size" - kinda braindead, huh?
-# define PTY_BYTES_AVAILABLE TIOCOUTQ
+#define PTY_BYTES_AVAILABLE TIOCOUTQ
 #elif defined(TIOCINQ)
 // "our end's input queue size"
-# define PTY_BYTES_AVAILABLE TIOCINQ
+#define PTY_BYTES_AVAILABLE TIOCINQ
 #else
 // likewise. more generic ioctl (theoretically)
-# define PTY_BYTES_AVAILABLE FIONREAD
+#define PTY_BYTES_AVAILABLE FIONREAD
 #endif
 
 #define KMAXINT ((int)(~0U >> 1))
@@ -167,8 +167,7 @@ public:
             }
             const QByteArray &buf = *it;
             ++it;
-            int len = qMin((it == buffers.end() ? tail : buf.size()) - start,
-                           maxLength);
+            int len = qMin((it == buffers.end() ? tail : buf.size()) - start, maxLength);
             const char *ptr = buf.data() + start;
             if (const char *rptr = (const char *)memchr(ptr, c, len)) {
                 return index + (rptr - ptr) + 1;
@@ -231,16 +230,21 @@ static void qt_ignore_sigpipe()
     }
 }
 
-#define NO_INTR(ret,func) do { ret = func; } while (ret < 0 && errno == EINTR)
+#define NO_INTR(ret, func)                                                                                                                                     \
+    do {                                                                                                                                                       \
+        ret = func;                                                                                                                                            \
+    } while (ret < 0 && errno == EINTR)
 
 class KPtyDevicePrivate : public KPtyPrivate
 {
     Q_DECLARE_PUBLIC(KPtyDevice)
 public:
-    KPtyDevicePrivate(KPty *parent) :
-        KPtyPrivate(parent),
-        emittedReadyRead(false), emittedBytesWritten(false),
-        readNotifier(nullptr), writeNotifier(nullptr)
+    KPtyDevicePrivate(KPty *parent)
+        : KPtyPrivate(parent)
+        , emittedReadyRead(false)
+        , emittedBytesWritten(false)
+        , readNotifier(nullptr)
+        , writeNotifier(nullptr)
     {
     }
 
@@ -264,7 +268,7 @@ bool KPtyDevicePrivate::_k_canRead()
     qint64 readBytes = 0;
 
     int available;
-    if (!::ioctl(q->masterFd(), PTY_BYTES_AVAILABLE, (char *) &available)) {
+    if (!::ioctl(q->masterFd(), PTY_BYTES_AVAILABLE, (char *)&available)) {
         char *ptr = readBuffer.reserve(available);
         NO_INTR(readBytes, read(q->masterFd(), ptr, available));
         if (readBytes < 0) {
@@ -300,9 +304,7 @@ bool KPtyDevicePrivate::_k_canWrite()
 
     qt_ignore_sigpipe();
     int wroteBytes;
-    NO_INTR(wroteBytes,
-            write(q->masterFd(),
-                  writeBuffer.readPointer(), writeBuffer.readSize()));
+    NO_INTR(wroteBytes, write(q->masterFd(), writeBuffer.readPointer(), writeBuffer.readSize()));
     if (wroteBytes < 0) {
         q->setErrorString(i18n("Error writing to PTY"));
         return false;
@@ -323,23 +325,23 @@ bool KPtyDevicePrivate::_k_canWrite()
 
 #ifndef timeradd
 // Lifted from GLIBC
-# define timeradd(a, b, result) \
-    do { \
-        (result)->tv_sec = (a)->tv_sec + (b)->tv_sec; \
-        (result)->tv_usec = (a)->tv_usec + (b)->tv_usec; \
-        if ((result)->tv_usec >= 1000000) { \
-            ++(result)->tv_sec; \
-            (result)->tv_usec -= 1000000; \
-        } \
+#define timeradd(a, b, result)                                                                                                                                 \
+    do {                                                                                                                                                       \
+        (result)->tv_sec = (a)->tv_sec + (b)->tv_sec;                                                                                                          \
+        (result)->tv_usec = (a)->tv_usec + (b)->tv_usec;                                                                                                       \
+        if ((result)->tv_usec >= 1000000) {                                                                                                                    \
+            ++(result)->tv_sec;                                                                                                                                \
+            (result)->tv_usec -= 1000000;                                                                                                                      \
+        }                                                                                                                                                      \
     } while (0)
-# define timersub(a, b, result) \
-    do { \
-        (result)->tv_sec = (a)->tv_sec - (b)->tv_sec; \
-        (result)->tv_usec = (a)->tv_usec - (b)->tv_usec; \
-        if ((result)->tv_usec < 0) { \
-            --(result)->tv_sec; \
-            (result)->tv_usec += 1000000; \
-        } \
+#define timersub(a, b, result)                                                                                                                                 \
+    do {                                                                                                                                                       \
+        (result)->tv_sec = (a)->tv_sec - (b)->tv_sec;                                                                                                          \
+        (result)->tv_usec = (a)->tv_usec - (b)->tv_usec;                                                                                                       \
+        if ((result)->tv_usec < 0) {                                                                                                                           \
+            --(result)->tv_sec;                                                                                                                                \
+            (result)->tv_usec += 1000000;                                                                                                                      \
+        }                                                                                                                                                      \
     } while (0)
 #endif
 
@@ -433,9 +435,9 @@ void KPtyDevicePrivate::finishOpen(QIODevice::OpenMode mode)
 // public member functions //
 /////////////////////////////
 
-KPtyDevice::KPtyDevice(QObject *parent) :
-    QIODevice(parent),
-    KPty(new KPtyDevicePrivate(this))
+KPtyDevice::KPtyDevice(QObject *parent)
+    : QIODevice(parent)
+    , KPty(new KPtyDevicePrivate(this))
 {
 }
 

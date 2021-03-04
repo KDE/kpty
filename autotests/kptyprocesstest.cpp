@@ -8,18 +8,20 @@
 
 #include "kptyprocesstest.h"
 
-#include <kptydevice.h>
-#include <QTest>
-#include <QSignalSpy>
-#include <QThread>
 #include <QDebug>
+#include <QSignalSpy>
 #include <QStandardPaths>
+#include <QTest>
+#include <QThread>
+#include <kptydevice.h>
 
 void KPtyProcessTest::test_suspend_pty()
 {
     KPtyProcess p;
     p.setPtyChannels(KPtyProcess::AllChannels);
-    p.setProgram("/bin/sh", QStringList() << "-c" << "while true; do echo KPtyProcess_test; sleep 1; done");
+    p.setProgram("/bin/sh",
+                 QStringList() << "-c"
+                               << "while true; do echo KPtyProcess_test; sleep 1; done");
     p.start();
 
     // verify that data is available to read from the pty
@@ -116,7 +118,9 @@ void KPtyProcessTest::test_pty_basic()
     QSKIP("This test fails on FreeBSD for some reason (waitForReadyRead(5000) times out)");
 #endif
     KPtyProcess p;
-    p.setProgram(bash, QStringList() << "-c" << "read -s VAL; echo \"1: $VAL\"; echo \"2: $VAL\" >&2");
+    p.setProgram(bash,
+                 QStringList() << "-c"
+                               << "read -s VAL; echo \"1: $VAL\"; echo \"2: $VAL\" >&2");
     p.setPtyChannels(KPtyProcess::AllChannels);
     p.pty()->setEcho(false);
     p.start();
@@ -154,20 +158,13 @@ void KPtyProcessTest::slotBytesWritten()
     log.append('<');
 }
 
-static const char *const feeds[] = {
-    "bla\n",
-    "foo\x04", "bar\n",
-    "fooish\nbar\n",
-    "\x04",
-    nullptr
-};
+static const char *const feeds[] = {"bla\n", "foo\x04", "bar\n", "fooish\nbar\n", "\x04", nullptr};
 
 static const char want[] =
     "<>bla\r\n$\n!\n"
     "<!\n<>foobar\r\n$\n!\n"
     "<>fooish\r\n$\n>bar\r\n$\n!\n"
-    "<|$\n"
-    ;
+    "<|$\n";
 
 void KPtyProcessTest::slotStep()
 {
@@ -196,7 +193,7 @@ void KPtyProcessTest::test_pty_signals()
     sp.pty()->closeSlave();
     phase = 0;
     qRegisterMetaType<QProcess::ExitStatus>();
-    QSignalSpy finishedSpy(&sp, SIGNAL(finished(int,QProcess::ExitStatus)));
+    QSignalSpy finishedSpy(&sp, SIGNAL(finished(int, QProcess::ExitStatus)));
     QVERIFY(finishedSpy.wait(2000));
     log.replace("<<", "<"); // It's OK if bytesWritten is emitted multiple times...
     QCOMPARE(QLatin1String(log), QLatin1String(want));
@@ -220,4 +217,3 @@ void KPtyProcessTest::test_ctty()
 }
 
 QTEST_MAIN(KPtyProcessTest)
-

@@ -24,7 +24,7 @@ private Q_SLOTS:
     void test_shared_pty();
     void test_suspend_pty();
 
-// for pty_signals
+    // for pty_signals
 public Q_SLOTS:
     void slotReadyRead();
     void slotDoRead();

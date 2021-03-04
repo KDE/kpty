@@ -27,49 +27,51 @@
 
 #include <config-pty.h>
 
-#include <sys/types.h>
 #include <errno.h>
 #include <grp.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/stat.h>
 #include <sys/ioctl.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <unistd.h>
 #if HAVE_PTY_H
-#  include <pty.h>
+#include <pty.h>
 #endif
 
 #include <sys/param.h>
 #if defined(__FreeBSD__)
-#  define BSD_PTY_HACK
-#  include <paths.h>
-#  include <dirent.h>
+#define BSD_PTY_HACK
+#include <dirent.h>
+#include <paths.h>
 #endif
 
 #define TTY_GROUP "tty"
 
 int main(int argc, char *argv[])
 {
-    struct stat   st;
+    struct stat st;
     struct group *p;
-    gid_t         gid;
-    uid_t         uid;
-    mode_t        mod;
-    char         *tty;
-    int           fd;
+    gid_t gid;
+    uid_t uid;
+    mode_t mod;
+    char *tty;
+    int fd;
 #if !HAVE_PTSNAME && defined(TIOCGPTN)
-    int           ptyno;
-    char          ttyb[32];
+    int ptyno;
+    char ttyb[32];
 #endif
 
     /* check preconditions **************************************************/
     if (argc != 3 || (strcmp(argv[1], "--grant") && strcmp(argv[1], "--revoke"))) {
-        printf("usage: %s (--grant|--revoke) <file descriptor>\n"
-               "%s is a helper for the KDE core libraries.\n"
-               "It is not intended to be called from the command line.\n"
-               "It needs to be installed setuid root to function.\n",
-               argv[0], argv[0]);
+        printf(
+            "usage: %s (--grant|--revoke) <file descriptor>\n"
+            "%s is a helper for the KDE core libraries.\n"
+            "It is not intended to be called from the command line.\n"
+            "It needs to be installed setuid root to function.\n",
+            argv[0],
+            argv[0]);
         return 1; /* FAIL */
     }
 
@@ -124,7 +126,7 @@ int main(int argc, char *argv[])
                         break;
                     }
 
-                    (void) closedir(dp);
+                    (void)closedir(dp);
                 }
             }
         }

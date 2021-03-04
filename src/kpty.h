@@ -26,7 +26,6 @@ class KPTY_EXPORT KPty
     Q_DECLARE_PRIVATE(KPty)
 
 public:
-
     /**
      * Constructor
      */
@@ -37,7 +36,7 @@ public:
      *
      *  If the pty is still open, it will be closed. Note, however, that
      *  an utmp registration is @em not undone.
-    */
+     */
     ~KPty();
 
     KPty(const KPty &) = delete;
@@ -197,4 +196,3 @@ protected:
 };
 
 #endif
-

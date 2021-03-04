@@ -10,52 +10,52 @@
 
 #include "kpty_p.h"
 
-#include <kpty_debug.h>
 #include <QProcess>
+#include <kpty_debug.h>
 
 // __USE_XOPEN isn't defined by default in ICC
 // (needed for ptsname(), grantpt() and unlockpt())
 #ifdef __INTEL_COMPILER
-#  ifndef __USE_XOPEN
-#    define __USE_XOPEN
-#  endif
+#ifndef __USE_XOPEN
+#define __USE_XOPEN
+#endif
 #endif
 
-#include <sys/types.h>
 #include <sys/ioctl.h>
-#include <sys/time.h>
+#include <sys/param.h>
 #include <sys/resource.h>
 #include <sys/stat.h>
-#include <sys/param.h>
+#include <sys/time.h>
+#include <sys/types.h>
 
 #include <errno.h>
 #include <fcntl.h>
-#include <time.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
 #include <grp.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+#include <unistd.h>
 
 #if HAVE_PTY_H
-# include <pty.h>
+#include <pty.h>
 #endif
 
 #if HAVE_LIBUTIL_H
-# include <libutil.h>
+#include <libutil.h>
 #elif HAVE_UTIL_H
-# include <util.h>
+#include <util.h>
 #endif
 
 #ifdef UTEMPTER_PATH
 // utempter uses 'add' and 'del' whereas ulog-helper uses 'login' and 'logout'
-#  ifndef UTEMPTER_ULOG
-#    define UTEMPTER_ADD "add"
-#    define UTEMPTER_DEL "del"
-#  else
-#    define UTEMPTER_ADD "login"
-#    define UTEMPTER_DEL "logout"
-#  endif
+#ifndef UTEMPTER_ULOG
+#define UTEMPTER_ADD "add"
+#define UTEMPTER_DEL "del"
+#else
+#define UTEMPTER_ADD "login"
+#define UTEMPTER_DEL "logout"
+#endif
 class UtemptProcess : public QProcess
 {
 public:
@@ -69,16 +69,16 @@ public:
     int cmdFd;
 };
 #else
-# include <utmp.h>
-# if HAVE_UTMPX
-#  include <utmpx.h>
-# endif
-# if !defined(_PATH_UTMPX) && defined(_UTMPX_FILE)
-#  define _PATH_UTMPX _UTMPX_FILE
-# endif
-# if !defined(_PATH_WTMPX) && defined(_WTMPX_FILE)
-#  define _PATH_WTMPX _WTMPX_FILE
-# endif
+#include <utmp.h>
+#if HAVE_UTMPX
+#include <utmpx.h>
+#endif
+#if !defined(_PATH_UTMPX) && defined(_UTMPX_FILE)
+#define _PATH_UTMPX _UTMPX_FILE
+#endif
+#if !defined(_PATH_WTMPX) && defined(_WTMPX_FILE)
+#define _PATH_WTMPX _WTMPX_FILE
+#endif
 #endif
 
 /* for HP-UX (some versions) the extern C is needed, and for other
@@ -86,34 +86,34 @@ public:
 extern "C" {
 #include <termios.h>
 #if HAVE_TERMIO_H
-# include <termio.h> // struct winsize on some systems
+#include <termio.h> // struct winsize on some systems
 #endif
 }
 
-#if defined (_HPUX_SOURCE)
-# define _TERMIOS_INCLUDED
-# include <bsdtty.h>
+#if defined(_HPUX_SOURCE)
+#define _TERMIOS_INCLUDED
+#include <bsdtty.h>
 #endif
 
 #if HAVE_SYS_STROPTS_H
-# include <sys/stropts.h>   // Defines I_PUSH
-# define _NEW_TTY_CTRL
+#include <sys/stropts.h> // Defines I_PUSH
+#define _NEW_TTY_CTRL
 #endif
 
 #if HAVE_TCGETATTR
-# define _tcgetattr(fd, ttmode) tcgetattr(fd, ttmode)
-#elif defined (__FreeBSD__) || defined (__NetBSD__) || defined (__OpenBSD__) || defined (__bsdi__) || defined(__APPLE__) || defined (__DragonFly__)
-# define _tcgetattr(fd, ttmode) ioctl(fd, TIOCGETA, (char *)ttmode)
+#define _tcgetattr(fd, ttmode) tcgetattr(fd, ttmode)
+#elif defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__bsdi__) || defined(__APPLE__) || defined(__DragonFly__)
+#define _tcgetattr(fd, ttmode) ioctl(fd, TIOCGETA, (char *)ttmode)
 #else
-# define _tcgetattr(fd, ttmode) ioctl(fd, TCGETS, (char *)ttmode)
+#define _tcgetattr(fd, ttmode) ioctl(fd, TCGETS, (char *)ttmode)
 #endif
 
 #if HAVE_TCSETATTR
-# define _tcsetattr(fd, ttmode) tcsetattr(fd, TCSANOW, ttmode)
-#elif defined (__FreeBSD__) || defined (__NetBSD__) || defined (__OpenBSD__) || defined (__bsdi__) || defined(__APPLE__) || defined (__DragonFly__)
-# define _tcsetattr(fd, ttmode) ioctl(fd, TIOCSETA, (char *)ttmode)
+#define _tcsetattr(fd, ttmode) tcsetattr(fd, TCSANOW, ttmode)
+#elif defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__bsdi__) || defined(__APPLE__) || defined(__DragonFly__)
+#define _tcsetattr(fd, ttmode) ioctl(fd, TIOCSETA, (char *)ttmode)
 #else
-# define _tcsetattr(fd, ttmode) ioctl(fd, TCSETS, (char *)ttmode)
+#define _tcsetattr(fd, ttmode) ioctl(fd, TCSETS, (char *)ttmode)
 #endif
 
 #include <qplatformdefs.h>
@@ -123,11 +123,11 @@ extern "C" {
 #define TTY_GROUP "tty"
 
 #ifndef PATH_MAX
-# ifdef MAXPATHLEN
-#  define PATH_MAX MAXPATHLEN
-# else
-#  define PATH_MAX 1024
-# endif
+#ifdef MAXPATHLEN
+#define PATH_MAX MAXPATHLEN
+#else
+#define PATH_MAX 1024
+#endif
 #endif
 
 ///////////////////////
@@ -138,8 +138,11 @@ extern "C" {
 // private data //
 //////////////////
 
-KPtyPrivate::KPtyPrivate(KPty *parent) :
-    masterFd(-1), slaveFd(-1), ownMaster(true), q_ptr(parent)
+KPtyPrivate::KPtyPrivate(KPty *parent)
+    : masterFd(-1)
+    , slaveFd(-1)
+    , ownMaster(true)
+    , q_ptr(parent)
 {
 #ifdef UTEMPTER_PATH
     utempterPath = QStringLiteral(UTEMPTER_PATH);
@@ -150,7 +153,7 @@ KPtyPrivate::~KPtyPrivate()
 {
 }
 
-#if ! HAVE_OPENPTY
+#if !HAVE_OPENPTY
 bool KPtyPrivate::chownpty(bool grant)
 {
     return !QProcess::execute(QFile::decodeName(CMAKE_INSTALL_PREFIX "/" KDE_INSTALL_LIBEXECDIR_KF5 "/kgrantpty"),
@@ -162,13 +165,13 @@ bool KPtyPrivate::chownpty(bool grant)
 // public member functions //
 /////////////////////////////
 
-KPty::KPty() :
-    d_ptr(new KPtyPrivate(this))
+KPty::KPty()
+    : d_ptr(new KPtyPrivate(this))
 {
 }
 
-KPty::KPty(KPtyPrivate *d) :
-    d_ptr(d)
+KPty::KPty(KPtyPrivate *d)
+    : d_ptr(d)
 {
     d_ptr->q_ptr = this;
 }
@@ -219,7 +222,7 @@ bool KPty::open()
 #elif defined(PTM_DEVICE)
     d->masterFd = QT_OPEN(PTM_DEVICE, QT_OPEN_RDWR | O_NOCTTY);
 #else
-# error No method to open a PTY master detected.
+#error No method to open a PTY master detected.
 #endif
     if (d->masterFd >= 0) {
 #if HAVE_PTSNAME
@@ -279,16 +282,13 @@ bool KPty::open()
 gotpty:
     QFileInfo info(d->ttyName.data());
     if (!info.exists()) {
-        return false;    // this just cannot happen ... *cough*  Yeah right, I just
+        return false; // this just cannot happen ... *cough*  Yeah right, I just
     }
     // had it happen when pty #349 was allocated.  I guess
     // there was some sort of leak?  I only had a few open.
-    if (((info.ownerId() != getuid()) ||
-            (info.permissions() & (QFile::ReadGroup | QFile::ExeGroup | QFile::ReadOther | QFile::WriteOther | QFile::ExeOther))) &&
-            !d->chownpty(true)) {
-        qCWarning(KPTY_LOG)
-                << "chownpty failed for device " << ptyName << "::" << d->ttyName
-                << "\nThis means the communication can be eavesdropped." << endl;
+    if (((info.ownerId() != getuid()) || (info.permissions() & (QFile::ReadGroup | QFile::ExeGroup | QFile::ReadOther | QFile::WriteOther | QFile::ExeOther)))
+        && !d->chownpty(true)) {
+        qCWarning(KPTY_LOG) << "chownpty failed for device " << ptyName << "::" << d->ttyName << "\nThis means the communication can be eavesdropped." << endl;
     }
 
 grantedpt:
@@ -335,17 +335,17 @@ bool KPty::open(int fd)
 
     d->ownMaster = false;
 
-# if HAVE_PTSNAME
+#if HAVE_PTSNAME
     char *ptsn = ptsname(fd);
     if (ptsn) {
         d->ttyName = ptsn;
-# else
+#else
     int ptyno;
     if (!ioctl(fd, TIOCGPTN, &ptyno)) {
         char buf[32];
         sprintf(buf, "/dev/pts/%d", ptyno);
         d->ttyName = buf;
-# endif
+#endif
     } else {
         qCWarning(KPTY_LOG) << "Failed to determine pty slave device for fd" << fd;
         return false;
@@ -401,7 +401,7 @@ void KPty::close()
     }
     closeSlave();
     if (d->ownMaster) {
-#if ! HAVE_OPENPTY
+#if !HAVE_OPENPTY
         // don't bother resetting unix98 pty, it will go away after closing master anyway.
         if (memcmp(d->ttyName.data(), "/dev/pts/", 9)) {
             if (!geteuid()) {
@@ -458,11 +458,11 @@ void KPty::login(const char *user, const char *remotehost)
     }
 
 #else
-# if HAVE_UTMPX
+#if HAVE_UTMPX
     struct utmpx l_struct;
-# else
+#else
     struct utmp l_struct;
-# endif
+#endif
     memset(&l_struct, 0, sizeof(l_struct));
     // note: strncpy without terminators _is_ correct here. man 4 utmp
 
@@ -472,61 +472,59 @@ void KPty::login(const char *user, const char *remotehost)
 
     if (remotehost) {
         strncpy(l_struct.ut_host, remotehost, sizeof(l_struct.ut_host));
-# if HAVE_STRUCT_UTMP_UT_SYSLEN
+#if HAVE_STRUCT_UTMP_UT_SYSLEN
         l_struct.ut_syslen = qMin(strlen(remotehost), sizeof(l_struct.ut_host));
-# endif
+#endif
     }
 
-# ifndef __GLIBC__
+#ifndef __GLIBC__
     Q_D(KPty);
     const char *str_ptr = d->ttyName.data();
     if (!memcmp(str_ptr, "/dev/", 5)) {
         str_ptr += 5;
     }
     strncpy(l_struct.ut_line, str_ptr, sizeof(l_struct.ut_line));
-#  if HAVE_STRUCT_UTMP_UT_ID
-    strncpy(l_struct.ut_id,
-            str_ptr + strlen(str_ptr) - sizeof(l_struct.ut_id),
-            sizeof(l_struct.ut_id));
-#  endif
-# endif
+#if HAVE_STRUCT_UTMP_UT_ID
+    strncpy(l_struct.ut_id, str_ptr + strlen(str_ptr) - sizeof(l_struct.ut_id), sizeof(l_struct.ut_id));
+#endif
+#endif
 
-# if HAVE_UTMPX
+#if HAVE_UTMPX
     gettimeofday(&l_struct.ut_tv, 0);
-# else
+#else
     l_struct.ut_time = time(0);
-# endif
+#endif
 
-# if HAVE_LOGIN
-#  if HAVE_LOGINX
+#if HAVE_LOGIN
+#if HAVE_LOGINX
     ::loginx(&l_struct);
-#  else
+#else
     ::login(&l_struct);
-#  endif
-# else
-#  if HAVE_STRUCT_UTMP_UT_TYPE
+#endif
+#else
+#if HAVE_STRUCT_UTMP_UT_TYPE
     l_struct.ut_type = USER_PROCESS;
-#  endif
-#  if HAVE_STRUCT_UTMP_UT_PID
+#endif
+#if HAVE_STRUCT_UTMP_UT_PID
     l_struct.ut_pid = getpid();
-#   if HAVE_STRUCT_UTMP_UT_SESSION
+#if HAVE_STRUCT_UTMP_UT_SESSION
     l_struct.ut_session = getsid(0);
-#   endif
-#  endif
-#  if HAVE_UTMPX
+#endif
+#endif
+#if HAVE_UTMPX
     utmpxname(_PATH_UTMPX);
     setutxent();
     pututxline(&l_struct);
     endutxent();
     updwtmpx(_PATH_WTMPX, &l_struct);
-#  else
+#else
     utmpname(_PATH_UTMP);
     setutent();
     pututline(&l_struct);
     endutent();
     updwtmp(_PATH_WTMP, &l_struct);
-#  endif
-# endif
+#endif
+#endif
 #endif
 }
 
@@ -553,59 +551,59 @@ void KPty::logout()
     if (!memcmp(str_ptr, "/dev/", 5)) {
         str_ptr += 5;
     }
-# ifdef __GLIBC__
+#ifdef __GLIBC__
     else {
         const char *sl_ptr = strrchr(str_ptr, '/');
         if (sl_ptr) {
             str_ptr = sl_ptr + 1;
         }
     }
-# endif
-# if HAVE_LOGIN
-#  if HAVE_LOGINX
+#endif
+#if HAVE_LOGIN
+#if HAVE_LOGINX
     ::logoutx(str_ptr, 0, DEAD_PROCESS);
-#  else
+#else
     ::logout(str_ptr);
-#  endif
-# else
-#  if HAVE_UTMPX
+#endif
+#else
+#if HAVE_UTMPX
     struct utmpx l_struct, *ut;
-#  else
+#else
     struct utmp l_struct, *ut;
-#  endif
+#endif
     memset(&l_struct, 0, sizeof(l_struct));
 
     strncpy(l_struct.ut_line, str_ptr, sizeof(l_struct.ut_line));
 
-#  if HAVE_UTMPX
+#if HAVE_UTMPX
     utmpxname(_PATH_UTMPX);
     setutxent();
     if ((ut = getutxline(&l_struct))) {
-#  else
+#else
     utmpname(_PATH_UTMP);
     setutent();
     if ((ut = getutline(&l_struct))) {
-#  endif
+#endif
         memset(ut->ut_name, 0, sizeof(*ut->ut_name));
         memset(ut->ut_host, 0, sizeof(*ut->ut_host));
-#  if HAVE_STRUCT_UTMP_UT_SYSLEN
+#if HAVE_STRUCT_UTMP_UT_SYSLEN
         ut->ut_syslen = 0;
-#  endif
-#  if HAVE_STRUCT_UTMP_UT_TYPE
+#endif
+#if HAVE_STRUCT_UTMP_UT_TYPE
         ut->ut_type = DEAD_PROCESS;
-#  endif
-#  if HAVE_UTMPX
+#endif
+#if HAVE_UTMPX
         gettimeofday(&(ut->ut_tv), 0);
         pututxline(ut);
     }
     endutxent();
-#  else
+#else
         ut->ut_time = time(0);
         pututline(ut);
     }
     endutent();
-#  endif
-# endif
+#endif
+#endif
 #endif
 }
 

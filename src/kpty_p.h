@@ -22,13 +22,13 @@ public:
 
     KPtyPrivate(KPty *parent);
     virtual ~KPtyPrivate();
-#if ! HAVE_OPENPTY
+#if !HAVE_OPENPTY
     bool chownpty(bool grant);
 #endif
 
     int masterFd;
     int slaveFd;
-    bool ownMaster: 1;
+    bool ownMaster : 1;
 
     QByteArray ttyName;
     QString utempterPath;

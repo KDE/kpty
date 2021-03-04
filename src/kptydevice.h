@@ -17,13 +17,12 @@ class KPtyDevicePrivate;
 /**
  * Encapsulates KPty into a QIODevice, so it can be used with Q*Stream, etc.
  */
-class KPTY_EXPORT KPtyDevice : public QIODevice, public KPty   //krazy:exclude=dpointer (via macro)
+class KPTY_EXPORT KPtyDevice : public QIODevice, public KPty // krazy:exclude=dpointer (via macro)
 {
     Q_OBJECT
     Q_DECLARE_PRIVATE_D(KPty::d_ptr, KPtyDevice)
 
 public:
-
     /**
      * Constructor
      */
@@ -135,4 +134,3 @@ private:
 };
 
 #endif
-
