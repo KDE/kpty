@@ -28,7 +28,7 @@
 #include <sys/time.h>
 #include <sys/types.h>
 
-#include <errno.h>
+#include <cerrno>
 #include <fcntl.h>
 #include <grp.h>
 #include <stdio.h>

@@ -27,7 +27,7 @@
 
 #include <config-pty.h>
 
-#include <errno.h>
+#include <cerrno>
 #include <grp.h>
 #include <stdio.h>
 #include <stdlib.h>

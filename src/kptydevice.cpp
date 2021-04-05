@@ -16,7 +16,7 @@
 
 #include <KLocalizedString>
 
-#include <errno.h>
+#include <cerrno>
 #include <fcntl.h>
 #include <signal.h>
 #include <sys/ioctl.h>
