@@ -26,7 +26,7 @@ public:
     {
     }
 
-    void _k_onStateChanged(QProcess::ProcessState newState)
+    void onStateChanged(QProcess::ProcessState newState)
     {
         if (newState == QProcess::NotRunning && addUtmp) {
             pty->logout();
@@ -57,7 +57,9 @@ KPtyProcess::KPtyProcess(int ptyMasterFd, QObject *parent)
         d->pty->open(ptyMasterFd);
     }
 
-    connect(this, SIGNAL(stateChanged(QProcess::ProcessState)), SLOT(_k_onStateChanged(QProcess::ProcessState)));
+    connect(this, &QProcess::stateChanged, this, [d](QProcess::ProcessState state) {
+        d->onStateChanged(state);
+    });
 }
 
 KPtyProcess::~KPtyProcess()
@@ -66,7 +68,7 @@ KPtyProcess::~KPtyProcess()
 
     if (state() != QProcess::NotRunning && d->addUtmp) {
         d->pty->logout();
-        disconnect(SIGNAL(stateChanged(QProcess::ProcessState)), this, SLOT(_k_onStateChanged(QProcess::ProcessState)));
+        disconnect(nullptr, &QProcess::stateChanged, this, nullptr);
     }
     delete d->pty;
 }
