@@ -181,19 +181,19 @@ void KPtyProcessTest::test_pty_signals()
     sp.setShellCommand("cat; sleep .1");
     sp.setPtyChannels(KPtyProcess::StdinChannel | KPtyProcess::StdoutChannel);
     sp.pty()->setEcho(false);
-    connect(sp.pty(), SIGNAL(readyRead()), SLOT(slotReadyRead()));
-    connect(sp.pty(), SIGNAL(readEof()), SLOT(slotReadEof()));
-    connect(sp.pty(), SIGNAL(bytesWritten(qint64)), SLOT(slotBytesWritten()));
-    QTimer t;
-    connect(&t, SIGNAL(timeout()), SLOT(slotStep()));
-    t.start(200);
-    connect(&delay, SIGNAL(timeout()), SLOT(slotDoRead()));
+    connect(sp.pty(), &QIODevice::readyRead, this, &KPtyProcessTest::slotReadyRead);
+    connect(sp.pty(), &KPtyDevice::readEof, this, &KPtyProcessTest::slotReadEof);
+    connect(sp.pty(), &QIODevice::bytesWritten, this, &KPtyProcessTest::slotBytesWritten);
+    QTimer timer;
+    connect(&timer, &QTimer::timeout, this, &KPtyProcessTest::slotStep);
+    timer.start(200);
+    connect(&delay, &QTimer::timeout, this, &KPtyProcessTest::slotDoRead);
     delay.setSingleShot(true);
     sp.start();
     sp.pty()->closeSlave();
     phase = 0;
     qRegisterMetaType<QProcess::ExitStatus>();
-    QSignalSpy finishedSpy(&sp, SIGNAL(finished(int, QProcess::ExitStatus)));
+    QSignalSpy finishedSpy(&sp, &QProcess::finished);
     QVERIFY(finishedSpy.wait(2000));
     log.replace("<<", "<"); // It's OK if bytesWritten is emitted multiple times...
     QCOMPARE(QLatin1String(log), QLatin1String(want));
