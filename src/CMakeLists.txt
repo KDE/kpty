@@ -31,7 +31,7 @@ target_link_libraries(KF5Pty PUBLIC Qt5::Core
 target_include_directories(KF5Pty PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/..)
 
 set_target_properties(KF5Pty PROPERTIES
-   VERSION ${KPTY_VERSION_STRING}
+   VERSION ${KPTY_VERSION}
    SOVERSION ${KPTY_SOVERSION}
    EXPORT_NAME Pty
 )
