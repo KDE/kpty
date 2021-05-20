@@ -1,10 +1,13 @@
-set(kpty_LIB_SRCS
+add_library(KF5Pty)
+add_library(KF5::Pty ALIAS KF5Pty)
+
+target_sources(KF5Pty PRIVATE
    kpty.cpp
    kptydevice.cpp
    kptyprocess.cpp
 )
 
-ecm_qt_declare_logging_category(kpty_LIB_SRCS
+ecm_qt_declare_logging_category(KF5Pty
     HEADER kpty_debug.h
     IDENTIFIER KPTY_LOG
     CATEGORY_NAME kf.pty
@@ -12,9 +15,7 @@ ecm_qt_declare_logging_category(kpty_LIB_SRCS
     EXPORT KPTY
 )
 
-add_library(KF5Pty ${kpty_LIB_SRCS})
 generate_export_header(KF5Pty BASE_NAME KPty)
-add_library(KF5::Pty ALIAS KF5Pty)
 
 include(ConfigureChecks.cmake)
 configure_file(config-pty.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-pty.h )
