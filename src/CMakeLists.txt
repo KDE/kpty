@@ -25,7 +25,6 @@ target_link_libraries(KF5Pty PUBLIC Qt5::Core
                                     KF5::CoreAddons # KProcess
                              PRIVATE
                                     ${UTIL_LIBRARY}
-                                    ${kpty_OPTIONAL_LIBS}
                                     KF5::I18n)
 
 target_include_directories(KF5Pty PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/..)
