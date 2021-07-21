@@ -33,6 +33,9 @@ target_link_libraries(KF5Pty PUBLIC Qt${QT_MAJOR_VERSION}::Core
                                     KF5::I18n)
 
 target_include_directories(KF5Pty PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/..)
+if(UTEMPTER_FOUND)
+  target_compile_definitions(KF5Pty PRIVATE ${UTEMPTER_COMPILE_FLAGS})
+endif()
 
 set_target_properties(KF5Pty PROPERTIES
    VERSION ${KPTY_VERSION}
