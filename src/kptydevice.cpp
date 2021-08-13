@@ -356,7 +356,8 @@ bool KPtyDevicePrivate::doWait(int msecs, bool reading)
 #ifndef Q_OS_LINUX
     struct timeval etv;
 #endif
-    struct timeval tv, *tvp;
+    struct timeval tv;
+    struct timeval *tvp;
 
     if (msecs < 0) {
         tvp = nullptr;
