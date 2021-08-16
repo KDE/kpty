@@ -25,13 +25,6 @@ public:
     {
     }
 
-    void _k_onStateChanged(QProcess::ProcessState newState)
-    {
-        if (newState == QProcess::NotRunning && addUtmp) {
-            pty->logout();
-        }
-    }
-
     std::unique_ptr<KPtyDevice> pty;
     KPtyProcess::PtyChannels ptyChannels = KPtyProcess::NoChannels;
     bool addUtmp = false;
@@ -56,7 +49,11 @@ KPtyProcess::KPtyProcess(int ptyMasterFd, QObject *parent)
         d->pty->open(ptyMasterFd);
     }
 
-    connect(this, SIGNAL(stateChanged(QProcess::ProcessState)), SLOT(_k_onStateChanged(QProcess::ProcessState)));
+    connect(this, &QProcess::stateChanged, this, [this](QProcess::ProcessState state) {
+        if (state == QProcess::NotRunning && d_ptr->addUtmp) {
+            d_ptr->pty->logout();
+        }
+    });
 }
 
 KPtyProcess::~KPtyProcess()
