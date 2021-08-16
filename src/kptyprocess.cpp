@@ -39,14 +39,8 @@ public:
 };
 
 KPtyProcess::KPtyProcess(QObject *parent)
-    : KProcess(parent)
-    , d_ptr(new KPtyProcessPrivate)
+    : KPtyProcess(-1, parent)
 {
-    Q_D(KPtyProcess);
-
-    d->pty = new KPtyDevice(this);
-    d->pty->open();
-    connect(this, SIGNAL(stateChanged(QProcess::ProcessState)), SLOT(_k_onStateChanged(QProcess::ProcessState)));
 }
 
 KPtyProcess::KPtyProcess(int ptyMasterFd, QObject *parent)
@@ -56,7 +50,13 @@ KPtyProcess::KPtyProcess(int ptyMasterFd, QObject *parent)
     Q_D(KPtyProcess);
 
     d->pty = new KPtyDevice(this);
-    d->pty->open(ptyMasterFd);
+
+    if (ptyMasterFd == -1) {
+        d->pty->open();
+    } else {
+        d->pty->open(ptyMasterFd);
+    }
+
     connect(this, SIGNAL(stateChanged(QProcess::ProcessState)), SLOT(_k_onStateChanged(QProcess::ProcessState)));
 }
 
