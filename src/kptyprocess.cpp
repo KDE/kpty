@@ -10,6 +10,7 @@
 #include <kptydevice.h>
 #include <kuser.h>
 
+#include <memory>
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -31,7 +32,7 @@ public:
         }
     }
 
-    KPtyDevice *pty;
+    std::unique_ptr<KPtyDevice> pty;
     KPtyProcess::PtyChannels ptyChannels = KPtyProcess::NoChannels;
     bool addUtmp = false;
 };
@@ -47,7 +48,7 @@ KPtyProcess::KPtyProcess(int ptyMasterFd, QObject *parent)
 {
     Q_D(KPtyProcess);
 
-    d->pty = new KPtyDevice(this);
+    d->pty = std::make_unique<KPtyDevice>(this);
 
     if (ptyMasterFd == -1) {
         d->pty->open();
@@ -66,7 +67,6 @@ KPtyProcess::~KPtyProcess()
         d->pty->logout();
         disconnect(SIGNAL(stateChanged(QProcess::ProcessState)), this, SLOT(_k_onStateChanged(QProcess::ProcessState)));
     }
-    delete d->pty;
 }
 
 void KPtyProcess::setPtyChannels(PtyChannels channels)
@@ -101,7 +101,7 @@ KPtyDevice *KPtyProcess::pty() const
 {
     Q_D(const KPtyProcess);
 
-    return d->pty;
+    return d->pty.get();
 }
 
 void KPtyProcess::setupChildProcess()
