@@ -21,8 +21,6 @@ class KPtyProcessPrivate
 {
 public:
     KPtyProcessPrivate()
-        : ptyChannels(KPtyProcess::NoChannels)
-        , addUtmp(false)
     {
     }
 
@@ -34,8 +32,8 @@ public:
     }
 
     KPtyDevice *pty;
-    KPtyProcess::PtyChannels ptyChannels;
-    bool addUtmp : 1;
+    KPtyProcess::PtyChannels ptyChannels = KPtyProcess::NoChannels;
+    bool addUtmp = false;
 };
 
 KPtyProcess::KPtyProcess(QObject *parent)
