@@ -62,7 +62,7 @@ KPtyProcess::~KPtyProcess()
 
     if (state() != QProcess::NotRunning && d->addUtmp) {
         d->pty->logout();
-        disconnect(nullptr, &QProcess::stateChanged, this, nullptr);
+        disconnect(this, &QProcess::stateChanged, this, nullptr);
     }
 }
 
