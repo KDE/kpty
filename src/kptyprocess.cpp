@@ -10,7 +10,6 @@
 #include <kptydevice.h>
 #include <kuser.h>
 
-#include <memory>
 #include <stdlib.h>
 #include <unistd.h>
 
