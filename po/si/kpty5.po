@@ -1,0 +1,39 @@
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Danishka Navin <danishka@gmail.com>, 2008, 2009, 2010, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: kdelibs4\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2021-08-14 00:14+0000\n"
+"PO-Revision-Date: 2011-07-25 07:45+0530\n"
+"Last-Translator: Danishka Navin <danishka@gmail.com>\n"
+"Language-Team: Sinhala <danishka@gmail.com>\n"
+"Language: si\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+" \n"
+" \n"
+"X-Generator: Lokalize 1.2\n"
+
+#: kptydevice.cpp:278
+#, kde-format
+msgid "Error reading from PTY"
+msgstr "PTY වෙතින් කියවීම දෝෂ සහිතයි"
+
+#: kptydevice.cpp:311
+#, kde-format
+msgid "Error writing to PTY"
+msgstr "PTY වෙතට ලිවීවීම දෝෂ සහිතයි"
+
+#: kptydevice.cpp:405
+#, kde-format
+msgid "PTY operation timed out"
+msgstr "PTY මෙහෙයුම් කාළය ඉකුත් විය"
+
+#: kptydevice.cpp:464 kptydevice.cpp:478
+#, kde-format
+msgid "Error opening PTY"
+msgstr "PTY විවෘත කිරීම දෝෂ සහිතයි"
