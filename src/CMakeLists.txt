@@ -2,9 +2,13 @@ add_library(KF5Pty)
 add_library(KF5::Pty ALIAS KF5Pty)
 
 target_sources(KF5Pty PRIVATE
-   kpty.cpp
-   kptydevice.cpp
-   kptyprocess.cpp
+    kpty.cpp
+    kptydevice.cpp
+    kptydevice.h
+    kpty.h
+    kpty_p.h
+    kptyprocess.cpp
+    kptyprocess.h
 )
 
 ecm_qt_declare_logging_category(KF5Pty
