@@ -1,0 +1,40 @@
+# translation of kdelibs4.po to marathi
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Sandeep Shedmake <sandeep.shedmake@gmail.com>, 2008, 2009.
+# Chetan Khona <chetan@kompkin.com>, 2012, 2013.
+msgid ""
+msgstr ""
+"Project-Id-Version: kdelibs4\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2021-08-14 00:14+0000\n"
+"PO-Revision-Date: 2013-03-29 16:14+0530\n"
+"Last-Translator: Chetan Khona <chetan@kompkin.com>\n"
+"Language-Team: Marathi <kde-i18n-doc@kde.org>\n"
+"Language: mr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"X-Generator: Lokalize 1.5\n"
+
+#: kptydevice.cpp:278
+#, kde-format
+msgid "Error reading from PTY"
+msgstr "PTY पासून वाचतेवेळी त्रुटी आढळली"
+
+#: kptydevice.cpp:311
+#, kde-format
+msgid "Error writing to PTY"
+msgstr "PTY करिता लिहितेवेळी त्रुटी आढळली"
+
+#: kptydevice.cpp:405
+#, kde-format
+msgid "PTY operation timed out"
+msgstr "PTY कार्यपध्दतीची वेळ संपली"
+
+#: kptydevice.cpp:464 kptydevice.cpp:478
+#, kde-format
+msgid "Error opening PTY"
+msgstr "PTY उघडतेवेळी त्रुटी आढळली"
