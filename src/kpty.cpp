@@ -156,7 +156,7 @@ KPtyPrivate::~KPtyPrivate()
 #if !HAVE_OPENPTY
 bool KPtyPrivate::chownpty(bool grant)
 {
-    return !QProcess::execute(QFile::decodeName(CMAKE_INSTALL_PREFIX "/" KDE_INSTALL_LIBEXECDIR_KF5 "/kgrantpty"),
+    return !QProcess::execute(QFile::decodeName(CMAKE_INSTALL_PREFIX "/" KDE_INSTALL_LIBEXECDIR_KF "/kgrantpty"),
                               QStringList() << (grant ? "--grant" : "--revoke") << QString::number(masterFd));
 }
 #endif
