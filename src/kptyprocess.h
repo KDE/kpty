@@ -122,7 +122,9 @@ protected:
     /**
      * @reimp
      */
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     void setupChildProcess() override;
+#endif
 
 private:
     std::unique_ptr<KPtyProcessPrivate> const d_ptr;
