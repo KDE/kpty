@@ -138,13 +138,22 @@ public:
 
     /**
      * Change the logical (screen) size of the pty.
-     * The default is 24 lines by 80 columns.
+     * The default is 24 lines by 80 columns in characters, and zero pixels.
      *
      * This function can be used only while the PTY is open.
      *
-     * @param lines the number of rows
-     * @param columns the number of columns
+     * @param lines the number of character rows
+     * @param columns the number of character columns
+     * @param height the view height in pixels
+     * @param width the view width in pixels
      * @return @c true on success, false otherwise
+     */
+    bool setWinSize(int lines, int columns, int height, int width);
+
+    /**
+     * @overload
+     * Change the logical (screen) size of the pty.
+     * The pixel size is set to zero.
      */
     bool setWinSize(int lines, int columns);
 

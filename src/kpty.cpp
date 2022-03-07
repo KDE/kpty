@@ -633,15 +633,21 @@ bool KPty::tcSetAttr(struct ::termios *ttmode)
     return _tcsetattr(d->masterFd, ttmode) == 0;
 }
 
-bool KPty::setWinSize(int lines, int columns)
+bool KPty::setWinSize(int lines, int columns, int height, int width)
 {
     Q_D(KPty);
 
     struct winsize winSize;
-    memset(&winSize, 0, sizeof(winSize));
     winSize.ws_row = (unsigned short)lines;
     winSize.ws_col = (unsigned short)columns;
+    winSize.ws_ypixel = (unsigned short)height;
+    winSize.ws_xpixel = (unsigned short)width;
     return ioctl(d->masterFd, TIOCSWINSZ, (char *)&winSize) == 0;
+}
+
+bool KPty::setWinSize(int lines, int columns)
+{
+    return setWinSize(lines, columns, 0, 0);
 }
 
 bool KPty::setEcho(bool echo)
