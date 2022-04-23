@@ -41,7 +41,8 @@ KPtyProcess::KPtyProcess(int ptyMasterFd, QObject *parent)
     Q_D(KPtyProcess);
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
-    setChildProcessModifier([d]() {
+    auto parentChildProcModifier = KProcess::childProcessModifier();
+    setChildProcessModifier([d, parentChildProcModifier]() {
         d->pty->setCTty();
         if (d->addUtmp) {
             d->pty->login(KUser(KUser::UseRealUserID).loginName().toLocal8Bit().constData(), qgetenv("DISPLAY").constData());
@@ -54,6 +55,10 @@ KPtyProcess::KPtyProcess(int ptyMasterFd, QObject *parent)
         }
         if (d->ptyChannels & StderrChannel) {
             dup2(d->pty->slaveFd(), 2);
+        }
+
+        if (parentChildProcModifier) {
+            parentChildProcModifier();
         }
     });
 #endif

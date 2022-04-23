@@ -31,6 +31,29 @@ class KPtyProcessPrivate;
  * for it is impossible. Note that execute() does not work with the PTY, too.
  * Use the PTY device's waitFor*() functions or use it asynchronously.
  *
+ * @note If you inherit from this class and use setChildProcessModifier() in
+ * the derived class, you must call the childProcessModifier() of KPtyProcess
+ * first (using setChildProcessModifier() in the derived class will "overwrite"
+ * the childProcessModifier() std::function that was previously set by KPtyProcess).
+ * For example:
+ * @code
+ * class MyProcess : public KPtyProcess
+ * {
+ *     MyProcess()
+ *     {
+ *         auto parentChildProcModifier = KPtyProcess::childProcessModifier();
+ *         setChildProcessModifier([parentChildProcModifier]() {
+ *             // First call the parent class modifier function
+ *             if (parentChildProcModifier) {
+ *                 parentChildProcModifier();
+ *             }
+ *             // Then whatever extra code you need to run
+ *             ....
+ *             ....
+ *         });
+ *     }
+ * @endcode
+ *
  * @author Oswald Buddenhagen <ossi@kde.org>
  */
 class KPTY_EXPORT KPtyProcess : public KProcess
