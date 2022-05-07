@@ -1,0 +1,39 @@
+# Uyghur translation for kdelibs4.
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+# Sahran <sahran.ug@gmail.com>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kdelibs4\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2021-08-14 00:14+0000\n"
+"PO-Revision-Date: 2013-09-08 07:05+0900\n"
+"Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
+"Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
+"Language: ug\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 1.5.5\n"
+
+#: kptydevice.cpp:278
+#, kde-format
+msgid "Error reading from PTY"
+msgstr "PTY دىن ئوقۇشتا خاتالىق كۆرۈلدى"
+
+#: kptydevice.cpp:311
+#, kde-format
+msgid "Error writing to PTY"
+msgstr "PTY غا يېزىشتا خاتالىق كۆرۈلدى"
+
+#: kptydevice.cpp:405
+#, kde-format
+msgid "PTY operation timed out"
+msgstr "PTY مەشغۇلات ۋاقتى ئېشىپ كەتتى"
+
+#: kptydevice.cpp:464 kptydevice.cpp:478
+#, kde-format
+msgid "Error opening PTY"
+msgstr "PTY ئېچىشتا خاتالىق كۆرۈلدى"
