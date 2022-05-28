@@ -147,6 +147,8 @@ public:
      * @param height the view height in pixels
      * @param width the view width in pixels
      * @return @c true on success, false otherwise
+     *
+     * @since 5.93
      */
     bool setWinSize(int lines, int columns, int height, int width);
 
