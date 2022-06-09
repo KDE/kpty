@@ -1,0 +1,42 @@
+# translation of kdelibs4.po to
+# Malayalam translation of kdelibs4.
+# Copyright (C) 2007-2010 This_file_is_part_of_KDE
+# This file is distributed under the same license as the kdelibs package.
+# Anoop | അനൂപ് Panavalappil | പനവളപ്പില്‍ <gnuanu@gmail.com>, 2008.
+# ANI PETER|അനി പീറ്റര്‍ <peter.ani@gmail.com>, 2008.
+# Maxin B. John <maxinbjohn@gmail.com>, 2007.
+# Manu S Madhav | മനു എസ് മാധവ് <manusmad@gmail.com>, 2008.
+# Praveen Arimbrathodiyil <pravi.a@gmail.com>, 2007, 2008, 2009, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: kdelibs4\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2021-08-14 00:14+0000\n"
+"PO-Revision-Date: 2010-12-29 15:32+0530\n"
+"Last-Translator: \n"
+"Language-Team: SMC <smc.org.in>\n"
+"Language: ml\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: kptydevice.cpp:278
+#, kde-format
+msgid "Error reading from PTY"
+msgstr "പിടിവൈയില്‍ നിന്നും വായിയ്ക്കുന്നതില്‍ തെറ്റു്"
+
+#: kptydevice.cpp:311
+#, kde-format
+msgid "Error writing to PTY"
+msgstr "പിടിവൈയിലേയ്ക്കെഴുതുന്നതില്‍ തെറ്റു്"
+
+#: kptydevice.cpp:405
+#, kde-format
+msgid "PTY operation timed out"
+msgstr "പിടിവൈ പ്രവൃത്തിയുടെ സമയം തീര്‍ന്നുപോയി"
+
+#: kptydevice.cpp:464 kptydevice.cpp:478
+#, kde-format
+msgid "Error opening PTY"
+msgstr "പിടിവൈ തുറക്കുന്നതില്‍ തെറ്റു്"
