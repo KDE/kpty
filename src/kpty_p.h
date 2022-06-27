@@ -1,6 +1,7 @@
 /*
     This file is part of the KDE libraries
     SPDX-FileCopyrightText: 2003, 2007 Oswald Buddenhagen <ossi@kde.org>
+    SPDX-FileCopyrightText: 2022 Harald Sitter <sitter@kde.org>
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
@@ -32,6 +33,8 @@ public:
 
     QByteArray ttyName;
     QString utempterPath;
+
+    bool withCTty = true;
 
     KPty *q_ptr;
 };

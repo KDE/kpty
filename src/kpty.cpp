@@ -4,6 +4,7 @@
     SPDX-FileCopyrightText: 2002-2003, 2007-2008 Oswald Buddenhagen <ossi@kde.org>
     SPDX-FileCopyrightText: 2010 KDE e.V. <kde-ev-board@kde.org>
     SPDX-FileContributor: 2010 Adriaan de Groot <groot@kde.org>
+    SPDX-FileCopyrightText: 2022 Harald Sitter <sitter@kde.org>
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
@@ -437,6 +438,10 @@ void KPty::setCTty()
 {
     Q_D(KPty);
 
+    if (!d->withCTty) {
+        return;
+    }
+
     // Setup job control //////////////////////////////////
 
     // Become session leader, process group leader,
@@ -683,4 +688,11 @@ int KPty::slaveFd() const
     Q_D(const KPty);
 
     return d->slaveFd;
+}
+
+void KPty::setCTtyEnabled(bool enable)
+{
+    Q_D(KPty);
+
+    d->withCTty = enable;
 }

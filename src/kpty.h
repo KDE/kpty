@@ -1,6 +1,7 @@
 /*
     This file is part of the KDE libraries
     SPDX-FileCopyrightText: 2003, 2007 Oswald Buddenhagen <ossi@kde.org>
+    SPDX-FileCopyrightText: 2022 Harald Sitter <sitter@kde.org>
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
@@ -86,6 +87,19 @@ public:
      * @return true if the pty slave was successfully opened
      */
     bool openSlave();
+
+    /**
+     * @brief Whether this will be a controlling terminal
+     *
+     * This is on by default.
+     * Disabling the controllig aspect only makes sense if another process will
+     * take over control or there is nothing to control or for technical reasons
+     * control cannot be set (this notably is the case with flatpak-spawn when
+     * used inside a sandbox).
+     *
+     * @param enable whether to enable ctty set up
+     */
+    void setCTtyEnabled(bool enable);
 
     /**
      * Creates a new session and process group and makes this pty the
