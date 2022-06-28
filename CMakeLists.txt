@@ -11,12 +11,21 @@ feature_summary(WHAT REQUIRED_PACKAGES_NOT_FOUND FATAL_ON_MISSING_REQUIRED_PACKA
 
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
-set(REQUIRED_QT_VERSION 5.15.2)
-
+# Includes
 include(KDEInstallDirs)
-include(KDEFrameworkCompilerSettings NO_POLICY_SCOPE)
 include(KDECMakeSettings)
+include(KDEFrameworkCompilerSettings NO_POLICY_SCOPE)
+
 include(KDEGitCommitHooks)
+include(ECMMarkNonGuiExecutable)
+include(ECMSetupVersion)
+include(ECMGenerateHeaders)
+include(ECMQtDeclareLoggingCategory)
+include(ECMAddQch)
+include(CMakePackageConfigHelpers)
+include(GenerateExportHeader)
+
+set(REQUIRED_QT_VERSION 5.15.2)
 find_package(Qt${QT_MAJOR_VERSION} "${REQUIRED_QT_VERSION}" CONFIG REQUIRED Core)
 
 find_package(KF5CoreAddons ${KF_DEP_VERSION} REQUIRED)
@@ -34,16 +43,6 @@ endif()
 
 # create a Config.cmake and a ConfigVersion.cmake file and install them
 set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KF5Pty")
-
-# Includes
-
-include(GenerateExportHeader)
-include(ECMMarkNonGuiExecutable)
-include(ECMSetupVersion)
-include(ECMGenerateHeaders)
-include(ECMQtDeclareLoggingCategory)
-include(CMakePackageConfigHelpers)
-include(ECMAddQch)
 
 option(BUILD_QCH "Build API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)" OFF)
 add_feature_info(QCH ${BUILD_QCH} "API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)")
