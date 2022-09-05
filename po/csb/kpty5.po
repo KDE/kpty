@@ -1,0 +1,40 @@
+# translation of kdelibs4.po to Kaszëbsczi
+#
+# Michôł Òstrowsczi <michol@linuxcsb.org>, 2006, 2007, 2008, 2009.
+# Mark Kwidzińsczi <mark@linuxcsb.org>, 2006, 2007, 2008, 2009.
+# Mark Kwidzińśczi <mark@linuxcsb.org>, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: kdelibs4\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2021-08-14 00:14+0000\n"
+"PO-Revision-Date: 2009-12-04 22:09+0100\n"
+"Last-Translator: Mark Kwidzińśczi <mark@linuxcsb.org>\n"
+"Language-Team: Kaszëbsczi <i18n-csb@linuxcsb.org>\n"
+"Language: csb\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.0\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2)\n"
+
+#: kptydevice.cpp:278
+#, kde-format
+msgid "Error reading from PTY"
+msgstr "Fela òbczas czëtaniô z PTY"
+
+#: kptydevice.cpp:311
+#, kde-format
+msgid "Error writing to PTY"
+msgstr "Fela òbczas zapisu do PTY"
+
+#: kptydevice.cpp:405
+#, kde-format
+msgid "PTY operation timed out"
+msgstr "czas òperacëji PTY ju zlecôł"
+
+#: kptydevice.cpp:464 kptydevice.cpp:478
+#, kde-format
+msgid "Error opening PTY"
+msgstr "Fela òbczas òtemkniãcô PTY"
