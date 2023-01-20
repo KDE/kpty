@@ -11,8 +11,8 @@ deprecated: false
 release: true
 libraries:
  - qmake: KPty
-   cmake: "KF5::Pty"
-cmakename: KF5Pty
+   cmake: "KF6::Pty"
+cmakename: KF6Pty
 
 public_lib: true
 group: Frameworks

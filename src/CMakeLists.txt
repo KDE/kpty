@@ -1,7 +1,7 @@
-add_library(KF5Pty)
-add_library(KF5::Pty ALIAS KF5Pty)
+add_library(KF6Pty)
+add_library(KF6::Pty ALIAS KF6Pty)
 
-target_sources(KF5Pty PRIVATE
+target_sources(KF6Pty PRIVATE
     kpty.cpp
     kptydevice.cpp
     kptydevice.h
@@ -11,7 +11,7 @@ target_sources(KF5Pty PRIVATE
     kptyprocess.h
 )
 
-ecm_qt_declare_logging_category(KF5Pty
+ecm_qt_declare_logging_category(KF6Pty
     HEADER kpty_debug.h
     IDENTIFIER KPTY_LOG
     CATEGORY_NAME kf.pty
@@ -19,25 +19,25 @@ ecm_qt_declare_logging_category(KF5Pty
     EXPORT KPTY
 )
 
-generate_export_header(KF5Pty BASE_NAME KPty)
+generate_export_header(KF6Pty BASE_NAME KPty)
 
 include(ConfigureChecks.cmake)
 configure_file(config-pty.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-pty.h )
 
-target_include_directories(KF5Pty INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF}/KPty>")
+target_include_directories(KF6Pty INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF}/KPty>")
 
-target_link_libraries(KF5Pty PUBLIC Qt${QT_MAJOR_VERSION}::Core
-                                    KF5::CoreAddons # KProcess
+target_link_libraries(KF6Pty PUBLIC Qt${QT_MAJOR_VERSION}::Core
+                                    KF6::CoreAddons # KProcess
                              PRIVATE
                                     ${UTIL_LIBRARY}
-                                    KF5::I18n)
+                                    KF6::I18n)
 
-target_include_directories(KF5Pty PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/..)
+target_include_directories(KF6Pty PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/..)
 if(UTEMPTER_FOUND)
-  target_compile_definitions(KF5Pty PRIVATE ${UTEMPTER_COMPILE_FLAGS})
+  target_compile_definitions(KF6Pty PRIVATE ${UTEMPTER_COMPILE_FLAGS})
 endif()
 
-set_target_properties(KF5Pty PROPERTIES
+set_target_properties(KF6Pty PROPERTIES
    VERSION ${KPTY_VERSION}
    SOVERSION ${KPTY_SOVERSION}
    EXPORT_NAME Pty
@@ -52,7 +52,7 @@ ecm_generate_headers(KPty_HEADERS
   REQUIRED_HEADERS KPty_HEADERS
 )
 
-install(TARGETS KF5Pty EXPORT KF5PtyTargets ${KF_INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS KF6Pty EXPORT KF6PtyTargets ${KF_INSTALL_TARGETS_DEFAULT_ARGS})
 
 install(FILES
   ${CMAKE_CURRENT_BINARY_DIR}/kpty_export.h
@@ -62,9 +62,9 @@ install(FILES
 
 if(BUILD_QCH)
     ecm_add_qch(
-        KF5Pty_QCH
+        KF6Pty_QCH
         NAME KPty
-        BASE_NAME KF5Pty
+        BASE_NAME KF6Pty
         VERSION ${KF_VERSION}
         ORG_DOMAIN org.kde
         SOURCES # using only public headers, to cover only public API
@@ -72,7 +72,7 @@ if(BUILD_QCH)
         MD_MAINPAGE "${CMAKE_SOURCE_DIR}/README.md"
         LINK_QCHS
             Qt5Core_QCH
-            KF5CoreAddons_QCH
+            KF6CoreAddons_QCH
         INCLUDE_DIRS
             ${CMAKE_CURRENT_BINARY_DIR}
         BLANK_MACROS
@@ -94,7 +94,7 @@ if (NOT HAVE_OPENPTY)
 endif ()
 
 include(ECMGeneratePriFile)
-ecm_generate_pri_file(BASE_NAME KPty LIB_NAME KF5Pty DEPS "core KCoreAddons" FILENAME_VAR PRI_FILENAME INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR_KF}/KPty)
+ecm_generate_pri_file(BASE_NAME KPty LIB_NAME KF6Pty DEPS "core KCoreAddons" FILENAME_VAR PRI_FILENAME INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR_KF}/KPty)
 install(FILES ${PRI_FILENAME} DESTINATION ${ECM_MKSPECS_INSTALL_DIR})
 
 ecm_qt_install_logging_categories(
