@@ -27,7 +27,7 @@ include(CMakePackageConfigHelpers)
 include(GenerateExportHeader)
 
 set(REQUIRED_QT_VERSION 6.4.0)
-find_package(Qt${QT_MAJOR_VERSION} "${REQUIRED_QT_VERSION}" CONFIG REQUIRED Core)
+find_package(Qt6 "${REQUIRED_QT_VERSION}" CONFIG REQUIRED Core)
 
 find_package(KF6CoreAddons ${KF_DEP_VERSION} REQUIRED)
 find_package(KF6I18n ${KF_DEP_VERSION} REQUIRED)
@@ -59,8 +59,8 @@ add_definitions(-DTRANSLATION_DOMAIN=\"kpty5\")
 ki18n_install(po)
 
 ecm_set_disabled_deprecation_versions(
-    QT 5.15.2
-    KF 5.97
+    QT 6.4
+    KF 5.102
 )
 
 add_subdirectory( src )

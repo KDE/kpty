@@ -26,7 +26,7 @@ configure_file(config-pty.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-pty.h )
 
 target_include_directories(KF6Pty INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF}/KPty>")
 
-target_link_libraries(KF6Pty PUBLIC Qt${QT_MAJOR_VERSION}::Core
+target_link_libraries(KF6Pty PUBLIC Qt6::Core
                                     KF6::CoreAddons # KProcess
                              PRIVATE
                                     ${UTIL_LIBRARY}
@@ -71,7 +71,7 @@ if(BUILD_QCH)
             ${KPty_HEADERS}
         MD_MAINPAGE "${CMAKE_SOURCE_DIR}/README.md"
         LINK_QCHS
-            Qt5Core_QCH
+            Qt6Core_QCH
             KF6CoreAddons_QCH
         INCLUDE_DIRS
             ${CMAKE_CURRENT_BINARY_DIR}
