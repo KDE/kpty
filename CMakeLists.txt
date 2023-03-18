@@ -55,7 +55,7 @@ ecm_setup_version(
   PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF6PtyConfigVersion.cmake"
   SOVERSION 6)
 
-add_definitions(-DTRANSLATION_DOMAIN=\"kpty5\")
+add_definitions(-DTRANSLATION_DOMAIN=\"kpty6\")
 ki18n_install(po)
 
 ecm_set_disabled_deprecation_versions(
