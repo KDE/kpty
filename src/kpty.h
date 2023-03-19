@@ -212,7 +212,7 @@ protected:
     /**
      * @internal
      */
-    KPty(KPtyPrivate *d);
+    KPTY_NO_EXPORT explicit KPty(KPtyPrivate *d);
 
     /**
      * @internal
