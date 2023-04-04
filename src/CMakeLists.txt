@@ -1,6 +1,12 @@
 add_library(KF6Pty)
 add_library(KF6::Pty ALIAS KF6Pty)
 
+set_target_properties(KF6Pty PROPERTIES
+   VERSION     ${KPTY_VERSION}
+   SOVERSION   ${KPTY_SOVERSION}
+   EXPORT_NAME Pty
+)
+
 target_sources(KF6Pty PRIVATE
     kpty.cpp
     kptydevice.cpp
@@ -36,12 +42,6 @@ target_include_directories(KF6Pty PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/..)
 if(UTEMPTER_FOUND)
   target_compile_definitions(KF6Pty PRIVATE ${UTEMPTER_COMPILE_FLAGS})
 endif()
-
-set_target_properties(KF6Pty PROPERTIES
-   VERSION ${KPTY_VERSION}
-   SOVERSION ${KPTY_SOVERSION}
-   EXPORT_NAME Pty
-)
 
 ecm_generate_headers(KPty_HEADERS
   HEADER_NAMES
