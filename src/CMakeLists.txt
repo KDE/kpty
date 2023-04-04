@@ -17,6 +17,14 @@ target_sources(KF6Pty PRIVATE
     kptyprocess.h
 )
 
+ecm_generate_export_header(KF6Pty
+    BASE_NAME KPty
+    GROUP_BASE_NAME KF
+    VERSION ${KPTY_VERSION}
+    USE_VERSION_HEADER
+    DEPRECATED_BASE_VERSION 0
+)
+
 ecm_qt_declare_logging_category(KF6Pty
     HEADER kpty_debug.h
     IDENTIFIER KPTY_LOG
@@ -24,8 +32,6 @@ ecm_qt_declare_logging_category(KF6Pty
     DESCRIPTION "KPty"
     EXPORT KPTY
 )
-
-generate_export_header(KF6Pty BASE_NAME KPty)
 
 include(ConfigureChecks.cmake)
 configure_file(config-pty.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-pty.h )
