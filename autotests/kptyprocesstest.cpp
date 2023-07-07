@@ -217,3 +217,5 @@ void KPtyProcessTest::test_ctty()
 }
 
 QTEST_MAIN(KPtyProcessTest)
+
+#include "moc_kptyprocesstest.cpp"
