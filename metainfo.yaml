@@ -10,8 +10,7 @@ portingAid: false
 deprecated: false
 release: true
 libraries:
- - qmake: KPty
-   cmake: "KF6::Pty"
+ - cmake: "KF6::Pty"
 cmakename: KF6Pty
 
 public_lib: true
