@@ -39,7 +39,7 @@ msgstr "S'ha produït un error en escriure en PTY"
 #: kptydevice.cpp:405
 #, kde-format
 msgid "PTY operation timed out"
-msgstr "L'operació de PTY ha excedit el temps límit"
+msgstr "L'operació de PTY ha excedit el temps"
 
 #: kptydevice.cpp:464 kptydevice.cpp:478
 #, kde-format
