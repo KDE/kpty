@@ -432,8 +432,12 @@ void KPtyDevicePrivate::finishOpen(QIODevice::OpenMode mode)
     readBuffer.clear();
     readNotifier = new QSocketNotifier(q->masterFd(), QSocketNotifier::Read, q);
     writeNotifier = new QSocketNotifier(q->masterFd(), QSocketNotifier::Write, q);
-    QObject::connect(readNotifier, SIGNAL(activated(int)), q, SLOT(_k_canRead()));
-    QObject::connect(writeNotifier, SIGNAL(activated(int)), q, SLOT(_k_canWrite()));
+    QObject::connect(readNotifier, &QSocketNotifier::activated, [this]() {
+        _k_canRead();
+    });
+    QObject::connect(writeNotifier, &QSocketNotifier::activated, [this]() {
+        _k_canWrite();
+    });
     readNotifier->setEnabled(true);
 }
 

@@ -127,10 +127,6 @@ protected:
     qint64 readData(char *data, qint64 maxSize) override;
     qint64 readLineData(char *data, qint64 maxSize) override;
     qint64 writeData(const char *data, qint64 maxSize) override;
-
-private:
-    Q_PRIVATE_SLOT(d_func(), bool _k_canRead())
-    Q_PRIVATE_SLOT(d_func(), bool _k_canWrite())
 };
 
 #endif
