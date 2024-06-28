@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdelibs4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2021-08-14 00:14+0000\n"
+"POT-Creation-Date: 2024-06-28 00:37+0000\n"
 "PO-Revision-Date: 2004-12-14 09:11-0600\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -35,7 +35,7 @@ msgstr "Earráid agus sonraí á scríobh go PTY"
 msgid "PTY operation timed out"
 msgstr "Chuaigh oibríocht PTY thar am"
 
-#: kptydevice.cpp:464 kptydevice.cpp:478
+#: kptydevice.cpp:468 kptydevice.cpp:482
 #, kde-format
 msgid "Error opening PTY"
 msgstr "Earráid le linn oscailte PTY"

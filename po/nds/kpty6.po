@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdelibs4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2021-08-14 00:14+0000\n"
+"POT-Creation-Date: 2024-06-28 00:37+0000\n"
 "PO-Revision-Date: 2014-03-11 23:48+0100\n"
 "Last-Translator: Sönke Dibbern <s_dibbern@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -34,7 +34,7 @@ msgstr "Fehler bi't Schrieven op't PTY"
 msgid "PTY operation timed out"
 msgstr "De Tiet för de PTY-Akschoon is aflopen"
 
-#: kptydevice.cpp:464 kptydevice.cpp:478
+#: kptydevice.cpp:468 kptydevice.cpp:482
 #, kde-format
 msgid "Error opening PTY"
 msgstr "Fehler bi't Opmaken vun't PTY"

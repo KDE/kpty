@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdelibs4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2021-08-14 00:14+0000\n"
+"POT-Creation-Date: 2024-06-28 00:37+0000\n"
 "PO-Revision-Date: 2011-07-22 16:08+0200\n"
 "Last-Translator: Marko Dimjašević <marko@dimjasevic.net>\n"
 "Language-Team: Croatian <kde-croatia-list@lists.sourceforge.net>\n"
@@ -44,7 +44,7 @@ msgstr "Pogreška kod pisanja u PTY"
 msgid "PTY operation timed out"
 msgstr "Isteklo vrijeme za PTY operaciju"
 
-#: kptydevice.cpp:464 kptydevice.cpp:478
+#: kptydevice.cpp:468 kptydevice.cpp:482
 #, kde-format
 msgid "Error opening PTY"
 msgstr "Pogreška kod otvaranja PTY "

@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdelibs4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2021-08-14 00:14+0000\n"
+"POT-Creation-Date: 2024-06-28 00:37+0000\n"
 "PO-Revision-Date: 2013-11-26 18:31+0100\n"
 "Last-Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -43,7 +43,7 @@ msgstr "Napaka med pisanjem na navidezni terminal (PTY)"
 msgid "PTY operation timed out"
 msgstr "Časovni pretek opravila na navideznem terminalu (PTY)"
 
-#: kptydevice.cpp:464 kptydevice.cpp:478
+#: kptydevice.cpp:468 kptydevice.cpp:482
 #, kde-format
 msgid "Error opening PTY"
 msgstr "Napaka med odpiranjem navideznega terminala (PTY)"

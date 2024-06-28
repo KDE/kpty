@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdelibs4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2021-08-14 00:14+0000\n"
+"POT-Creation-Date: 2024-06-28 00:37+0000\n"
 "PO-Revision-Date: 2013-10-15 17:51+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -40,7 +40,7 @@ msgstr "Fel vid skrivning till PTY"
 msgid "PTY operation timed out"
 msgstr "Tidsgräns gick ut för PTY-åtgärd"
 
-#: kptydevice.cpp:464 kptydevice.cpp:478
+#: kptydevice.cpp:468 kptydevice.cpp:482
 #, kde-format
 msgid "Error opening PTY"
 msgstr "Fel när PTY skulle öppnas"

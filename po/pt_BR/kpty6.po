@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kpty5\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2021-08-14 00:14+0000\n"
+"POT-Creation-Date: 2024-06-28 00:37+0000\n"
 "PO-Revision-Date: 2014-03-04 20:36-0300\n"
 "Last-Translator: André Marcelo Alvarenga <alvarenga@kde.org>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_br@kde.org>\n"
@@ -43,7 +43,7 @@ msgstr "Erro gravando no PTY"
 msgid "PTY operation timed out"
 msgstr "Tempo esgotado na operação PTY"
 
-#: kptydevice.cpp:464 kptydevice.cpp:478
+#: kptydevice.cpp:468 kptydevice.cpp:482
 #, kde-format
 msgid "Error opening PTY"
 msgstr "Erro ao abrir PTY"

@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kpty5\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2021-08-14 00:14+0000\n"
+"POT-Creation-Date: 2024-06-28 00:37+0000\n"
 "PO-Revision-Date: 2017-05-16 06:50-0400\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Hebrew <kde-i18n-doc@kde.org>\n"
@@ -48,7 +48,7 @@ msgstr "אירעה שגיאה בעת כתיבה ל־PTY"
 msgid "PTY operation timed out"
 msgstr "תם הזמן המוקצב לפעולת PTY"
 
-#: kptydevice.cpp:464 kptydevice.cpp:478
+#: kptydevice.cpp:468 kptydevice.cpp:482
 #, kde-format
 msgid "Error opening PTY"
 msgstr "אירעה שגיאה בעת פתיחת PTY"
