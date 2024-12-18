@@ -91,6 +91,8 @@ if(BUILD_QCH)
     )
 endif()
 
+ecm_generate_qdoc(KF6Pty kpty.qdocconf)
+
 ########### next target ###############
 
 if (NOT HAVE_OPENPTY)
