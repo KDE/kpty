@@ -11,7 +11,8 @@ sourcedirs = .
 outputformats = HTML
 
 depends += \
-    qtcore
+    qtcore \
+    kcoreaddons
 
 qhp.projects            = KPty
 

@@ -14,8 +14,11 @@
 
 class KPtyDevicePrivate;
 
-/**
- * Encapsulates KPty into a QIODevice, so it can be used with Q*Stream, etc.
+/*!
+ * \class KPtyDevice
+ * \inmodule KPty
+ *
+ * \brief Encapsulates KPty into a QIODevice, so it can be used with Q*Stream, etc.
  */
 class KPTY_EXPORT KPtyDevice : public QIODevice, public KPty // krazy:exclude=dpointer (via macro)
 {
@@ -23,27 +26,27 @@ class KPTY_EXPORT KPtyDevice : public QIODevice, public KPty // krazy:exclude=dp
     Q_DECLARE_PRIVATE_D(KPty::d_ptr, KPtyDevice)
 
 public:
-    /**
+    /*!
      * Constructor
      */
     explicit KPtyDevice(QObject *parent = nullptr);
 
-    /**
+    /*!
      * Destructor:
      *
      *  If the pty is still open, it will be closed. Note, however, that
-     *  an utmp registration is @em not undone.
+     *  an utmp registration is not undone.
      */
     ~KPtyDevice() override;
 
-    /**
+    /*!
      * Create a pty master/slave pair.
      *
-     * @return true if a pty pair was successfully opened
+     * Returns true if a pty pair was successfully opened
      */
     bool open(OpenMode mode = ReadWrite | Unbuffered) override;
 
-    /**
+    /*!
      * Open using an existing pty master. The ownership of the fd
      * remains with the caller, i.e., close() will not close the fd.
      *
@@ -52,18 +55,20 @@ public:
      * Note that you will need to use setSuspended() on both devices to
      * control which one gets the incoming data from the pty.
      *
-     * @param fd an open pty master file descriptor.
-     * @param mode the device mode to open the pty with.
-     * @return true if a pty pair was successfully opened
+     * \a fd an open pty master file descriptor.
+     *
+     * \a mode the device mode to open the pty with.
+     *
+     * Returns true if a pty pair was successfully opened
      */
     bool open(int fd, OpenMode mode = ReadWrite | Unbuffered);
 
-    /**
+    /*!
      * Close the pty master/slave pair.
      */
     void close() override;
 
-    /**
+    /*!
      * Sets whether the KPtyDevice monitors the pty for incoming data.
      *
      * When the KPtyDevice is suspended, it will no longer attempt to buffer
@@ -77,7 +82,7 @@ public:
      */
     void setSuspended(bool suspended);
 
-    /**
+    /*!
      * Returns true if the KPtyDevice is not monitoring the pty for incoming
      * data.
      *
@@ -87,36 +92,24 @@ public:
      */
     bool isSuspended() const;
 
-    /**
-     * @return always true
+    /*!
+     * Returns always true
      */
     bool isSequential() const override;
 
-    /**
-     * @reimp
-     */
     bool canReadLine() const override;
 
-    /**
-     * @reimp
-     */
     bool atEnd() const override;
 
-    /**
-     * @reimp
-     */
     qint64 bytesAvailable() const override;
 
-    /**
-     * @reimp
-     */
     qint64 bytesToWrite() const override;
 
     bool waitForBytesWritten(int msecs = -1) override;
     bool waitForReadyRead(int msecs = -1) override;
 
 Q_SIGNALS:
-    /**
+    /*!
      * Emitted when EOF is read from the PTY.
      *
      * Data may still remain in the buffers.
