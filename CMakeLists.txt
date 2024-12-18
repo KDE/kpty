@@ -22,8 +22,8 @@ include(ECMSetupVersion)
 include(ECMGenerateHeaders)
 include(ECMQtDeclareLoggingCategory)
 include(ECMDeprecationSettings)
-include(ECMAddQch)
 include(ECMGenerateExportHeader)
+include(ECMGenerateQDoc)
 include(CMakePackageConfigHelpers)
 
 set(REQUIRED_QT_VERSION 6.7.0)
@@ -45,9 +45,6 @@ endif()
 # create a Config.cmake and a ConfigVersion.cmake file and install them
 set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KF6Pty")
 
-option(BUILD_QCH "Build API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)" OFF)
-add_feature_info(QCH ${BUILD_QCH} "API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)")
-
 set(kpty_version_header "${CMAKE_CURRENT_BINARY_DIR}/src/kpty_version.h")
 ecm_setup_version(
   PROJECT
@@ -67,16 +64,6 @@ ecm_set_disabled_deprecation_versions(
 add_subdirectory( src )
 if (BUILD_TESTING)
     add_subdirectory( autotests )
-endif()
-
-if (BUILD_QCH)
-    ecm_install_qch_export(
-        TARGETS KF6Pty_QCH
-        FILE KF6PtyQchTargets.cmake
-        DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
-        COMPONENT Devel
-    )
-    set(PACKAGE_INCLUDE_QCHTARGETS "include(\"\${CMAKE_CURRENT_LIST_DIR}/KF6PtyQchTargets.cmake\")")
 endif()
 
 configure_package_config_file(

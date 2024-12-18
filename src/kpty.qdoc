@@ -1,0 +1,9 @@
+/*!
+    \module KPty
+    \title KPty C++ Classes
+    \ingroup modules
+    \cmakepackage KF6
+    \cmakecomponent Pty
+
+    \brief Interfacing with pseudo terminal devices.
+*/

@@ -1,0 +1,20 @@
+/*!
+    \page kpty-index.html
+    \title KPty
+
+    Interfacing with pseudo terminal devices.
+
+    \section1 Using the Module
+
+    \include {module-use.qdocinc} {using the c++ api}
+
+    \section2 Building with CMake
+
+    \include {module-use.qdocinc} {building with cmake} {KF6} {Pty} {KF6::Pty}
+
+    \section1 API Reference
+
+    \list
+        \li \l{KPty C++ Classes}
+    \endlist
+*/
