@@ -66,30 +66,7 @@ install(FILES
   DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF}/KPty COMPONENT Devel
 )
 
-if(BUILD_QCH)
-    ecm_add_qch(
-        KF6Pty_QCH
-        NAME KPty
-        BASE_NAME KF6Pty
-        VERSION ${KF_VERSION}
-        ORG_DOMAIN org.kde
-        SOURCES # using only public headers, to cover only public API
-            ${KPty_HEADERS}
-        MD_MAINPAGE "${CMAKE_SOURCE_DIR}/README.md"
-        LINK_QCHS
-            Qt6Core_QCH
-            KF6CoreAddons_QCH
-        INCLUDE_DIRS
-            ${CMAKE_CURRENT_BINARY_DIR}
-        BLANK_MACROS
-            KPTY_EXPORT
-            KPTY_DEPRECATED
-            KPTY_DEPRECATED_EXPORT
-        TAGFILE_INSTALL_DESTINATION ${KDE_INSTALL_QTQCHDIR}
-        QCH_INSTALL_DESTINATION ${KDE_INSTALL_QTQCHDIR}
-        COMPONENT Devel
-    )
-endif()
+ecm_generate_qdoc(KF6Pty kpty.qdocconf)
 
 ########### next target ###############
 

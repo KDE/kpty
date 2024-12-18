@@ -1,0 +1,30 @@
+include($KDE_DOCS/global/qt-module-defaults.qdocconf)
+
+project = KPty
+description = Interfacing with pseudo terminal devices
+
+documentationinheaders = true
+
+headerdirs += .
+sourcedirs += .
+
+outputformats = HTML
+
+depends += \
+    kde \
+    qtcore \
+    kcoreaddons
+
+qhp.projects            = KPty
+
+qhp.KPty.file                = kpty.qhp
+qhp.KPty.namespace           = org.kde.kpty.$QT_VERSION_TAG
+qhp.KPty.virtualFolder       = kpty
+qhp.KPty.indexTitle          = KPty
+qhp.KPty.indexRoot           =
+
+qhp.KPty.subprojects         = classes
+qhp.KPty.subprojects.classes.title = C++ Classes
+qhp.KPty.subprojects.classes.indexTitle = KPty C++ Classes
+qhp.KPty.subprojects.classes.selectors = class fake:headerfile
+qhp.KPty.subprojects.classes.sortPages = true

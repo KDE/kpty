@@ -18,8 +18,11 @@ class KPtyDevice;
 
 class KPtyProcessPrivate;
 
-/**
- * This class extends KProcess by support for PTYs (pseudo TTYs).
+/*!
+ * \class KPtyProcess
+ * \inmodule KPty
+ *
+ * \brief This class extends KProcess by support for PTYs (pseudo TTYs).
  *
  * The PTY is opened as soon as the class is instantiated. Verify that
  * it was opened successfully by checking that pty()->masterFd() is not -1.
@@ -31,12 +34,13 @@ class KPtyProcessPrivate;
  * for it is impossible. Note that execute() does not work with the PTY, too.
  * Use the PTY device's waitFor*() functions or use it asynchronously.
  *
- * @note If you inherit from this class and use setChildProcessModifier() in
+ * \note If you inherit from this class and use setChildProcessModifier() in
  * the derived class, you must call the childProcessModifier() of KPtyProcess
  * first (using setChildProcessModifier() in the derived class will "overwrite"
  * the childProcessModifier() std::function that was previously set by KPtyProcess).
+ *
  * For example:
- * @code
+ * \code
  * class MyProcess : public KPtyProcess
  * {
  *     MyProcess()
@@ -52,9 +56,7 @@ class KPtyProcessPrivate;
  *             ....
  *         });
  *     }
- * @endcode
- *
- * @author Oswald Buddenhagen <ossi@kde.org>
+ * \endcode
  */
 class KPTY_EXPORT KPtyProcess : public KProcess
 {
@@ -62,59 +64,57 @@ class KPTY_EXPORT KPtyProcess : public KProcess
     Q_DECLARE_PRIVATE(KPtyProcess)
 
 public:
-    /**
-     * @see PtyChannels
+    /*!
+     * \value NoChannels The PTY is not connected to any channel
+     * \value StdinChannel Connect PTY to stdin
+     * \value StdoutChannel Connect PTY to stdout
+     * \value StderrChannel Connect PTY to stderr
+     * \value AllOutputChannels Connect PTY to all output channels
+     * \value AllChannels Connect PTY to all channels
      */
     enum PtyChannelFlag {
-        NoChannels = 0, /**< The PTY is not connected to any channel. */
-        StdinChannel = 1, /**< Connect PTY to stdin. */
-        StdoutChannel = 2, /**< Connect PTY to stdout. */
-        StderrChannel = 4, /**< Connect PTY to stderr. */
-        AllOutputChannels = 6, /**< Connect PTY to all output channels. */
-        AllChannels = 7, /**< Connect PTY to all channels. */
+        NoChannels = 0,
+        StdinChannel = 1,
+        StdoutChannel = 2,
+        StderrChannel = 4,
+        AllOutputChannels = 6,
+        AllChannels = 7,
     };
-
-    /**
-     * Stores a combination of #PtyChannelFlag values.
-     */
     Q_DECLARE_FLAGS(PtyChannels, PtyChannelFlag)
 
-    /**
+    /*!
      * Constructor
      */
     explicit KPtyProcess(QObject *parent = nullptr);
 
-    /**
+    /*!
      * Construct a process using an open pty master.
      *
-     * @param ptyMasterFd an open pty master file descriptor.
+     * \a ptyMasterFd an open pty master file descriptor.
      *   The process does not take ownership of the descriptor;
      *   it will not be automatically closed at any point.
      */
     KPtyProcess(int ptyMasterFd, QObject *parent = nullptr);
 
-    /**
-     * Destructor
-     */
     ~KPtyProcess() override;
 
-    /**
+    /*!
      * Set to which channels the PTY should be assigned.
      *
      * This function must be called before starting the process.
      *
-     * @param channels the output channel handling mode
+     * \a channels the output channel handling mode
      */
     void setPtyChannels(PtyChannels channels);
 
-    /**
+    /*!
      * Query to which channels the PTY is assigned.
      *
-     * @return the output channel handling mode
+     * Returns the output channel handling mode
      */
     PtyChannels ptyChannels() const;
 
-    /**
+    /*!
      * Set whether to register the process as a TTY login in utmp.
      *
      * Utmp is disabled by default.
@@ -123,21 +123,21 @@ public:
      *
      * This function must be called before starting the process.
      *
-     * @param value whether to register in utmp.
+     * \a value whether to register in utmp.
      */
     void setUseUtmp(bool value);
 
-    /**
+    /*!
      * Get whether to register the process as a TTY login in utmp.
      *
-     * @return whether to register in utmp
+     * Returns whether to register in utmp
      */
     bool isUseUtmp() const;
 
-    /**
+    /*!
      * Get the PTY device of this process.
      *
-     * @return the PTY device
+     * Returns the PTY device
      */
     KPtyDevice *pty() const;
 
