@@ -24,6 +24,7 @@ include(ECMQtDeclareLoggingCategory)
 include(ECMDeprecationSettings)
 include(ECMAddQch)
 include(ECMGenerateExportHeader)
+include(ECMGenerateQDoc)
 include(CMakePackageConfigHelpers)
 
 set(REQUIRED_QT_VERSION 6.6.0)
