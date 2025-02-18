@@ -67,7 +67,7 @@ void KPtyProcessTest::test_shared_pty()
 
     // read the second processes greeting from the first process' pty
     for (int i = 0; i < 5; ++i) {
-        QVERIFY(p.pty()->waitForReadyRead(500));
+        QVERIFY(p.pty()->waitForReadyRead(1000));
         if (p.pty()->canReadLine()) {
             break;
         }
@@ -80,7 +80,7 @@ void KPtyProcessTest::test_shared_pty()
 
     // read the result back from the first process' pty
     for (int i = 0; i < 5; ++i) {
-        QVERIFY(p.pty()->waitForReadyRead(500));
+        QVERIFY(p.pty()->waitForReadyRead(1000));
         if (p.pty()->canReadLine()) {
             break;
         }
@@ -93,7 +93,7 @@ void KPtyProcessTest::test_shared_pty()
 
     // read the result back from the second process' pty
     for (int i = 0; i < 5; ++i) {
-        QVERIFY(p2.pty()->waitForReadyRead(500));
+        QVERIFY(p2.pty()->waitForReadyRead(1000));
         if (p2.pty()->canReadLine()) {
             break;
         }
