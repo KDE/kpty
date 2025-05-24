@@ -30,3 +30,5 @@ qhp.KPty.subprojects.classes.title = C++ Classes
 qhp.KPty.subprojects.classes.indexTitle = KPty C++ Classes
 qhp.KPty.subprojects.classes.selectors = class fake:headerfile
 qhp.KPty.subprojects.classes.sortPages = true
+
+tagfile = kpty.tags
