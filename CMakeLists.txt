@@ -57,7 +57,7 @@ add_definitions(-DTRANSLATION_DOMAIN=\"kpty6\")
 ki18n_install(po)
 
 ecm_set_disabled_deprecation_versions(
-    QT 6.10.0
+    QT 6.11.0
     KF 6.21.0
 )
 
