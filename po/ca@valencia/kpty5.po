@@ -29,12 +29,12 @@ msgstr ""
 #: kptydevice.cpp:278
 #, kde-format
 msgid "Error reading from PTY"
-msgstr "S'ha produït un error en llegir des de PTY"
+msgstr "S'ha produït un error mentre es llegia des de PTY"
 
 #: kptydevice.cpp:311
 #, kde-format
 msgid "Error writing to PTY"
-msgstr "S'ha produït un error en escriure en PTY"
+msgstr "S'ha produït un error mentre s'escrivia en PTY"
 
 #: kptydevice.cpp:405
 #, kde-format
@@ -44,4 +44,4 @@ msgstr "L'operació de PTY ha excedit el temps"
 #: kptydevice.cpp:464 kptydevice.cpp:478
 #, kde-format
 msgid "Error opening PTY"
-msgstr "S'ha produït un error en obrir PTY"
+msgstr "S'ha produït un error mentre s'obria PTY"
