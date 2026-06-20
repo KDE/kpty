@@ -49,7 +49,7 @@ if(UTEMPTER_FOUND)
   target_compile_definitions(KF6Pty PRIVATE ${UTEMPTER_COMPILE_FLAGS})
 endif()
 
-ecm_generate_headers(KPty_HEADERS
+ecm_generate_headers(KPty_CamelCase_HEADERS
   HEADER_NAMES
   KPty
   KPtyDevice
@@ -63,10 +63,32 @@ install(TARGETS KF6Pty EXPORT KF6PtyTargets ${KF_INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES
   ${CMAKE_CURRENT_BINARY_DIR}/kpty_export.h
   ${KPty_HEADERS}
+  ${KPty_CamelCase_HEADERS}
   DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF}/KPty COMPONENT Devel
 )
 
 ecm_generate_qdoc(KF6Pty kpty.qdocconf)
+
+ecm_add_installed_library_check(KF6Pty
+    PACKAGE_NAME "KF6Pty"
+    PACKAGE_VERSION ${KPTY_VERSION}
+    PACKAGE_TARGET_NAMESPACE "KF6::"
+)
+
+ecm_installed_library_check_include_strings(KF6Pty
+    HEADERS ${KPty_CamelCase_HEADERS}
+)
+ecm_installed_library_check_cmake_variable(KF6Pty
+    NAME "KPty_HAVE_UTEMPTER"
+    TYPE BOOL
+    VALUE ${UTEMPTER_FOUND}
+)
+
+ecm_installed_library_check_version_preprocessor_macros(KF6Pty
+    PREFIX KPTY
+    VERSION ${KPTY_VERSION}
+    SILENT
+)
 
 ########### next target ###############
 
