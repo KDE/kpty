@@ -27,7 +27,7 @@ include(ECMGenerateQDoc)
 include(ECMInstalledLibraryCheck)
 include(CMakePackageConfigHelpers)
 
-set(REQUIRED_QT_VERSION 6.9.0)
+set(REQUIRED_QT_VERSION 6.10.0)
 find_package(Qt6 "${REQUIRED_QT_VERSION}" CONFIG REQUIRED Core)
 
 find_package(KF6CoreAddons ${KF_DEP_VERSION} REQUIRED)
