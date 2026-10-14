@@ -29,7 +29,7 @@
 #include <sys/time.h>
 #endif
 
-#if defined(Q_OS_FREEBSD) || defined(Q_OS_MAC)
+#if defined(Q_OS_FREEBSD) || defined(Q_OS_DRAGONFLY) || defined(Q_OS_MAC)
 // "the other end's output queue size" -- that is is our end's input
 #define PTY_BYTES_AVAILABLE TIOCOUTQ
 #elif defined(TIOCINQ)
